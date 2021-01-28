@@ -26,19 +26,14 @@ const projectsContent: Project[] = [
 	{
 		title: 'Nodejs Q&A app',
 		tags: ['Websockets', 'Express', 'MongoDB'],
-		slug: '/projects/liveQA',
-		img: '/project-covers/liveqa.jpg',
+		slug: '/projects/live-qa',
+		img: '/project-covers/live-qa.jpg',
 	},
 	{
 		title: 'DiveAdvisor PHP Project',
 		tags: ['PHP/Laravel'],
-		slug: '/projects/diveadvisor',
-		img: '/project-covers/diveadvisor.jpg',
-		// content: {
-		// 	color: '#00c9f9',
-		// 	description: 'Instagram for divers',
-		// 	video: 'https://player.vimeo.com/video/172050347?color=ffffff&title=0&byline=0',
-		// },
+		slug: '/projects/dive-advisor',
+		img: '/project-covers/dive-advisor.jpg',
 	},
 	{
 		title: '404 Pixelgolf',

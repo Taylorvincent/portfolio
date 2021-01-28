@@ -3,11 +3,10 @@ import Layout from '../../src/Layout'
 import DefaultLayout from '../../src/Projects/DefaultLayout'
 
 const content: ProjectContent = {
-	title: 'Visualizr thesis & hobby project',
+	title: 'NodeJS real time Q&A app',
 	color: 'bg-black',
-	description:
-		'Three js music visualizer + user portal. Using the MERN stack (Mongoose, Express, React , Node)',
-	video: 'https://player.vimeo.com/video/222456545?color=000000&title=0&byline=0',
+	description: 'built with express, websockets, mongoose and mongoDB',
+	video: 'https://player.vimeo.com/video/172045069?color=ffffff&title=0&byline=0',
 }
 
 const Page = (): JSX.Element => (
