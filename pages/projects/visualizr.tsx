@@ -1,0 +1,18 @@
+import { ProjectContent } from '../../data/projects'
+import Layout from '../../src/Layout'
+import DefaultLayout from '../../src/Projects/DefaultLayout'
+
+const content: ProjectContent = {
+	title: 'Visualizr thesis & hobby project',
+	color: '#000000',
+	description: 'Three js music visualizer. Using the MERN stack (Mongoose, Express, React , Node)',
+	video: 'https://player.vimeo.com/video/172045069?color=ffffff&title=0&byline=0',
+}
+
+const Page = (): JSX.Element => (
+	<Layout title={content.title}>
+		<DefaultLayout content={content}></DefaultLayout>
+	</Layout>
+)
+
+export default Page
