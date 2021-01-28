@@ -1,0 +1,402 @@
+@import url('https://fonts.googleapis.com/css?family=Press+Start+2P&display=swap');
+
+.pixelgolf{
+  background-color: #339933;
+  font-family: 'Press Start 2P', cursive;
+}
+
+#debug{
+  position: fixed;
+  left: 100px;
+  top: 100px;
+  color: white;
+  background-color: rgba($color: #000000, $alpha: 0.5)
+}
+
+.pixelgolf{
+  width: 100%;
+  height: 100vh;
+  image-rendering: optimizeSpeed;
+    /* STOP SMOOTHING, GIVE ME SPEED  */
+    image-rendering: -moz-crisp-edges;
+    /* Firefox                        */
+    image-rendering: -o-crisp-edges;
+    /* Opera                          */
+    image-rendering: -webkit-optimize-contrast;
+    /* Chrome (and eventually Safari) */
+    image-rendering: pixelated;
+    /* Chrome */
+    image-rendering: optimize-contrast;
+    /* CSS3 Proposed                  */
+    -ms-interpolation-mode: nearest-neighbor;
+    /* IE8+                           */
+}
+
+.BG-grass{
+  background-color: #339933;
+}
+
+.BG{
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-repeat: no-repeat;
+}
+
+.BG.BG-sky{
+  height: 50vh;
+  background-color: #00c9f9;
+}
+.BG-1{
+  background-size: 200%;
+  background-repeat: repeat-x;
+  background-position: 50% center;
+}
+
+.BG-3{
+  background-size: 600%;
+  background-position: 0% center;
+}
+
+.BG-clouds{
+  background-size: 400%;
+  animation: clouds 820s infinite linear forwards;
+}
+
+.BG-animated{
+  animation: BG_step_each_frame_alternate 2s steps(1) infinite;
+}
+
+.boat{
+  width: 100%;
+  height: 112px;
+  display: block;
+  position: fixed;
+  transform: translateX(-50vw);
+  animation: 40s 0.4s sail linear infinite;
+}
+
+
+.boatsprite {
+  width: 372px;
+  height: 112px;
+  display: block;
+  position: relative;
+  left: 0;
+  top: 0;
+  background-repeat: repeat-x;
+  transform-origin: bottom;
+  animation: boatsprite 1.5s steps(6, start) infinite;
+}
+
+#golfer {
+  position: absolute;
+  left: calc(50vw - 220px);
+  width: 440px;
+  height: 400px;
+  cursor:pointer;
+  background-repeat: no-repeat;
+  background-position: -3960px;
+  transform-origin: 50% 50%;
+  transform: scale(1);
+  -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  outline: none;
+}
+
+.balldiv {
+  position: relative;
+  display: block;
+  width: 14px;
+  height: 14px;
+  background-color: white;
+  left: 0;
+  top: 0;
+  // animation: xAxis 2.7s forwards cubic-bezier(.51,0,.04,.6);
+  animation: xAxis 2.7s forwards;
+  animation-delay: .4s;
+}
+
+.balldiv-wrapper {
+  position: absolute;
+  display: block;
+  // animation: yAxis 2.7s forwards cubic-bezier(.07,.44,.81,1.18);
+  animation: yAxis 2.7s forwards;
+  animation-delay: .4s;
+}
+
+.golfer-animation{
+  animation: golfersprite 0.7s forwards steps(9, end);
+}
+
+#dialog-container{
+  position: absolute;
+  width: 100%;
+  min-height: 136px;
+  top: 10vh;
+  font-size: 1rem;
+}
+
+#dialog{
+    width: 92%;
+    margin: auto;
+    background-color: rgba(0, 0, 0, 0.8);
+    border: solid 4px white;
+    color: white;
+    position: relative;
+    padding: 2em;
+    line-height: 2em;
+    user-select: none;
+    font-size: 0.8rem;
+
+  h4{
+    margin-left: 0;
+    margin-bottom: 32px;
+  }
+
+  .p-container{
+    margin-bottom: 48px;
+  }
+
+  a{
+    padding: 10px;
+    width: 80%;
+    display: block;
+    margin: 16px auto;
+    border: 2px solid white;
+  }
+
+  a:link,
+  a:visited{
+      text-align:center;
+      color: white;
+  }
+
+  a:hover,
+  a:active{
+    color: black;
+    background-color: white;
+  }
+
+
+  .close-dialog{
+    width: 40px;
+    height: auto;
+    margin: 0;
+    margin-left: auto;
+    margin-bottom: 26px;
+    display: block;
+    position: relative;
+    border: none;
+  }
+  .close-dialog::after{
+    content: "X"
+  }
+
+}
+
+.bottom-info{
+  position: fixed;
+  top: calc( 100% - 100px) ;
+  left: 0;
+  width: 100%;
+  height: 10px;
+
+  input[type=range]{
+    cursor: pointer;
+    width: 100px;
+    transform: rotate(-90deg);
+  }
+  input[type=range]:focus {
+    outline: none;
+  }
+
+  .speaker-sprite{
+    cursor: pointer;
+    position: absolute;
+    width: 21px;
+    height: 16px;
+    transform: scale(2);
+    top: 0;
+    left: 100px;
+  }
+
+  p{
+    color: white;
+    font-size: 0.8rem;
+    margin: 0 36px;
+    text-align: right;
+  }
+  // 21x16
+}
+
+@media (min-width: 750px){
+  #dialog{
+    max-width: 750px;
+    margin: auto;
+    top: 25vh;
+    font-size: 1rem;
+
+    p{
+      margin-left: 40px;
+      margin-right: 40px;
+    }
+
+    a{
+      width: 60%;
+    }
+  }
+
+  .bottom-info{
+    left: 26px;
+  }
+}
+
+.blinking-cursor{
+  animation: blinking-cursor 0.3s infinite alternate;
+  animation-timing-function: steps(1);
+}
+
+.audio-controls {
+  animation: blinking-cursor 0.5s 3 forwards ;
+}
+
+.swearing-container{
+  position: absolute;
+  top: 50vh;
+}
+
+.swearing{
+  display: inline-block;
+  position: absolute;
+  justify-content: center;
+  text-align: center;
+  font-size: 0.8rem;
+  padding: 16px;
+  min-height: 14px;
+  line-height: 28px;
+  color: white;
+  background-color: black;
+  border: solid 4px white;
+  text-transform:uppercase;
+}
+
+@keyframes boatsprite {
+  0% {
+      background-position: -2232px;
+  }
+  100% {
+      background-position: 0px;
+  }
+}
+
+@keyframes golfersprite {
+  0% {
+      background-position: -3960px;
+  }
+  100% {
+      background-position: 0px;
+  }
+}
+
+@keyframes clouds {
+  0%{
+    background-position: 0% center;
+  }
+  100%{
+    background-position: 200% center;
+  }
+}
+
+@keyframes sail {
+  from{
+    transform: translateX(-150vw)
+  }
+  to{
+    transform: translateX(250vw)
+  }
+}
+
+@keyframes BG_step_each_frame_alternate {
+  0%{
+    background-position: 10% center;
+  }
+  25%{
+    background-position: 50% center;
+  }
+  50%{
+    background-position: 90% center;
+  }
+  75%{
+    background-position: 50% center;
+  }
+  100%{
+    background-position: 10% center;
+  }
+}
+
+@keyframes blinking-cursor {
+  50%{
+    opacity: 0;
+  }
+}
+
+
+@media all and (orientation:landscape) {
+
+  .BG{
+    width: 100%;
+    height: 100%;
+  }
+
+  .BG-sky{
+    height: 50vh;
+  }
+
+  .BG-1{
+    background-size: 100%;
+    background-position: 0% center;
+  }
+  .BG-clouds{
+    background-size: 200%;
+  }
+  .BG-3{
+    background-size: 300%;
+    background-position: 0% center;
+  }
+
+  @keyframes BG_step_each_frame_alternate {
+    0%{
+      background-position: 0% center;
+    }
+    25%{
+      background-position: 50% center;
+    }
+    50%{
+      background-position: 100% center;
+    }
+    75%{
+      background-position: 50% center;
+    }
+    100%{
+      background-position: 0% center;
+    }
+  }
+
+  @keyframes sail {
+    from{
+      transform: translateX(-50vw)
+    }
+    to{
+      transform: translateX(150vw)
+    }
+  }
+
+}
+
+
