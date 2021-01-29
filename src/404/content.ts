@@ -1,20 +1,9 @@
-export const dialog = {
-	text: [
-		'Oops. . .  Looks like you are lost.',
-		"Now that you're here, want to try out your golf skills?",
-	],
-	buttons: [
-		{
-			href: '#',
-			onClick: 'close', // something truthy
-			text: "Yeah! let's go!",
-		},
-		{
-			href: '/',
-			text: 'No, go back.',
-		},
-	],
-}
+export type Sentences = string[]
+
+export const sentences: Sentences = [
+	'Oops. . .  Looks like you are lost.',
+	"Now that you're here, want to try out your golf skills?",
+]
 
 // Todo: Censor?
 

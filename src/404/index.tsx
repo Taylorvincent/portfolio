@@ -8,7 +8,7 @@ const golfsprite = '/404/images/golfsprite.png'
 const audio_swing = '/404/sound/golfswing.wav'
 const audio_splash = '/404/sound/plons.wav'
 
-import { arrSwearWords_orig, dialog } from './content'
+import { arrSwearWords_orig, sentences } from './content'
 
 // import BlinkText from './components/BlinkText'
 import BackgroundAudio from './components/BackgroundAudio'
@@ -22,6 +22,7 @@ import useLocalStorage from '../utils/hooks/useLocalStorage'
 import { pickSwearWord, soundEffect } from './helpers'
 import Scene from './components/Scene'
 import updateSceneDimensions from './helpers/updateSceneDimensions'
+import BlinkingTextModal from './components/BlinkingTextModal'
 
 export const BG_ratio = 384 / 201
 export const ball_height = 20
@@ -169,16 +170,15 @@ const NotFound = (): JSX.Element => {
 			{showDialog && (
 				<div id="dialog-container">
 					<div id="dialog">
-						{/* <BlinkText
-							closeDialog={() => {
+						<BlinkingTextModal
+							onCloseDialog={() => {
 								toggleDialog(false)
 								setUserMediaApproved(true)
 								// startAudio again if not playing
 								// let volume slider blink
 							}}
-							content={dialog}
-						/> */}
-						<div>TODO text {dialog.text[0]}</div>
+							sentences={sentences}
+						></BlinkingTextModal>
 					</div>
 				</div>
 			)}
