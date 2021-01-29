@@ -20,7 +20,7 @@ const HomeContainer = (): JSX.Element => {
 						A creative full-stack developer, with a focus on modern front-end development.{' '}
 					</p>{' '}
 					<p>
-						Gamer, keyboard hoarder and a little{' '}
+						Gamer, keyboard hoarder and can be seen playing{' '}
 						<span role="img" aria-label="golf">
 							🏌️‍♂️ ⛳
 						</span>{' '}
