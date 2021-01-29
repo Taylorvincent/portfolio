@@ -1,14 +1,16 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/media-has-caption */
-import * as React from 'react'
-import { useState, useEffect } from 'react'
 
-// import * as golfsprite from '!file-loader?name=[name].[ext]!../../images/404/golfsprite.png'
-// import * as audio_swing from '!file-loader?name=[name].[ext]!../../images/404/golfswing.wav'
-// import * as audio_splash from '!file-loader?name=[name].[ext]!../../images/404/plons.wav'
+import { useState, useEffect, useRef } from 'react'
+
+const golfsprite = '/404/images/golfsprite.png'
+const audio_swing = '/404/sound/golfswing.wav'
+const audio_splash = '/404/sound/plons.wav'
 
 import { arrSwearWords_orig, dialog } from './content'
 
-import BlinkText from './components/BlinkText'
+// import BlinkText from './components/BlinkText'
 import BackgroundAudio from './components/BackgroundAudio'
 import AnimatingBalls from './components/AnimatingBalls'
 import BottomInfo from './components/BottomInfo'
@@ -17,8 +19,9 @@ import { useAnimationFrame, animateAnyBalls } from './helpers/animationHelpers'
 
 import { SceneDimensions, GolferState, AnimatingBall, Word } from './interfaces'
 import useLocalStorage from '../utils/hooks/useLocalStorage'
-import { updateSceneDimensions, pickSwearWord, soundEffect } from './helpers'
+import { pickSwearWord, soundEffect } from './helpers'
 import Scene from './components/Scene'
+import updateSceneDimensions from './helpers/updateSceneDimensions'
 
 export const BG_ratio = 384 / 201
 export const ball_height = 20
@@ -28,7 +31,7 @@ export const BALL_ANIMATION_DURATION = 3600
 export const SWING_HIT_DELAY = 460
 export const SWEAR_DELAY = BALL_ANIMATION_DURATION + SWING_HIT_DELAY // == ball landing? == animation duration ??
 
-const NotFound = () => {
+const NotFound = (): JSX.Element => {
 	const [state, setState] = useState<SceneDimensions>({
 		window_width: 0,
 		window_height: 0,
@@ -63,8 +66,8 @@ const NotFound = () => {
 	// Todo: Censor -> funnier?
 	const [arrSwearWords_In, setArrSwearWords_In] = useState<string[]>(arrSwearWords_orig.slice())
 
-	const audio_swing_ref = React.useRef(null)
-	const audio_splash_ref = React.useRef(null)
+	const audio_swing_ref = useRef(null)
+	const audio_splash_ref = useRef(null)
 
 	// update state dimensions on load and resize
 	useEffect(() => {
@@ -79,8 +82,8 @@ const NotFound = () => {
 	}, [])
 
 	// Handle ball animation
-	useAnimationFrame((deltaTime: any) => {
-		animateAnyBalls(setBallsArr, deltaTime, BALL_ANIMATION_DURATION, SWING_HIT_DELAY)
+	useAnimationFrame(() => {
+		animateAnyBalls(setBallsArr, BALL_ANIMATION_DURATION, SWING_HIT_DELAY)
 	})
 
 	return (
@@ -166,7 +169,7 @@ const NotFound = () => {
 			{showDialog && (
 				<div id="dialog-container">
 					<div id="dialog">
-						<BlinkText
+						{/* <BlinkText
 							closeDialog={() => {
 								toggleDialog(false)
 								setUserMediaApproved(true)
@@ -174,7 +177,8 @@ const NotFound = () => {
 								// let volume slider blink
 							}}
 							content={dialog}
-						/>
+						/> */}
+						<div>TODO text {dialog.text[0]}</div>
 					</div>
 				</div>
 			)}
