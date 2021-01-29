@@ -17,6 +17,7 @@ const DefaultLayout = ({ content }: Props): JSX.Element => {
 
 				<div>
 					<iframe
+						className="w-full"
 						title={'Video demo for ' + content.title + '.'}
 						src={content.video}
 						width="1344"
