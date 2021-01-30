@@ -2,20 +2,21 @@ import projectsContent from '../../data/projects'
 import ContactInformation from './Contact'
 import Cover from './Cover'
 import Link from 'next/link'
+// import Experience from './Experience'
 
 const HomeContainer = (): JSX.Element => {
 	return (
 		<div>
 			<h1 className="text-7xl p-4 pb-8">Taylor Vincent</h1>
 
-			<header className="container mx-auto p-8 md:p16 bg-black text-white">
+			<header className="container flex flex-wrap mx-auto p-8 md:p16 bg-black text-white">
 				<img
-					className="rounded-full mb-8 ml-4 md:ml-0"
+					className="rounded-full mb-8 lg:mb-0 ml-4 md:ml-0"
 					alt="headshot of me!"
 					src="/headshot-200.jpg"
 				></img>
-				<div className="text-xl pl-8">
-					<h2 className="text-4xl pb-8">Who's this guy?</h2>
+				<div className="text-xl pl-8 max-w-4xl">
+					<h2 className="text-4xl pb-8 lg:pt-4">Who's this guy?</h2>
 					<p>
 						A creative full-stack developer, with a focus on modern front-end development.{' '}
 					</p>{' '}
@@ -27,9 +28,11 @@ const HomeContainer = (): JSX.Element => {
 						when the weather allows it.
 					</p>
 					<br />
-					<p>Check out the stuff I've made below</p>
+					{/* <p>Check out the stuff I've made below</p> */}
 				</div>
 			</header>
+
+			{/* <Experience></Experience> */}
 
 			<section className="container mx-auto">
 				<div className="flex flex-wrap">

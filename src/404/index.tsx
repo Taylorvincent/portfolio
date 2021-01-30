@@ -77,7 +77,7 @@ const NotFound = (): JSX.Element => {
 		// Spawn dialog
 		setTimeout(() => {
 			toggleDialog(true)
-		}, 3000)
+		}, 2000)
 
 		return window.removeEventListener('resize', updateSceneDimensions.bind(null, state, setState))
 	}, [])
