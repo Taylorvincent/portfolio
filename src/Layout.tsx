@@ -6,7 +6,10 @@ type Props = {
 	title?: string
 }
 
-const Layout = ({ children, title = 'This is the default title' }: Props): JSX.Element => (
+const Layout = ({
+	children,
+	title = 'Taylor Vincent, full stack developer portfolio',
+}: Props): JSX.Element => (
 	<div>
 		<Head>
 			<title>{title}</title>
@@ -16,5 +19,11 @@ const Layout = ({ children, title = 'This is the default title' }: Props): JSX.E
 		{children}
 	</div>
 )
+
+// <meta property="og:image" content="/portfolio-og.jpg" />
+// <meta property="og:title" content={title} />
+// <meta property="og:description" content="A full description of the page." />
+// <meta property="og:image:width" content="1200" />
+// <meta property="og:image:height" content="630" />
 
 export default Layout

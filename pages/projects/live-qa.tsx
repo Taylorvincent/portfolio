@@ -10,7 +10,7 @@ const content: ProjectContent = {
 }
 
 const Page = (): JSX.Element => (
-	<Layout title={content.title}>
+	<Layout>
 		<DefaultLayout content={content}></DefaultLayout>
 	</Layout>
 )
