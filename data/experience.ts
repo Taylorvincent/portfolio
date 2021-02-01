@@ -5,7 +5,7 @@ const experience = [
 		duration: '1 year',
 		role: 'Front end',
 		stack: 'next.js, react, typescript, styled-components, webpack, sentry, laravel',
-		content: 'Responsible for the ',
+		content: 'Joined this startup to build their new front-end from scratch.',
 	},
 	{
 		job: 'Sigura',
@@ -29,7 +29,7 @@ const experience = [
 		role: 'full stack - internship + summer job',
 		duration: '6 months',
 		stack: 'laravel, scss, gulp',
-		content: 'An  where I created laravel websites for various clients.',
+		content: 'Created laravel websites for various clients.',
 	},
 	{
 		job: 'The Fridge',
@@ -37,7 +37,7 @@ const experience = [
 		role: 'full stack - summer job',
 		duration: '3 months',
 		stack: 'django, flask, css',
-		content: ' that needed a new website for a client.',
+		content: 'Created a new website for a client.',
 	},
 ]
 

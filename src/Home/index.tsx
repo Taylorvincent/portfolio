@@ -7,15 +7,21 @@ import Link from 'next/link'
 const HomeContainer = (): JSX.Element => {
 	return (
 		<div>
-			<h1 className="text-7xl p-4 pb-8">Taylor Vincent</h1>
+			<div className="flex justify-between">
+				<h1 className="text-7xl p-4 pb-8">Taylor Vincent</h1>
+				<div className="p-4 pt-6 hidden md:block">
+					<ContactInformation></ContactInformation>
+				</div>
+			</div>
 
-			<header className="container flex flex-wrap mx-auto p-8 md:p16 bg-black text-white">
+			<header className="container flex flex-wrap mx-auto p-8 pb-0 bg-black text-white">
 				<img
-					className="rounded-full mb-8 lg:mb-0 ml-4 md:ml-0"
+					className="rounded-full mb-8 mr-8"
+					style={{ width: 200, height: 200 }}
 					alt="headshot of me!"
 					src="/headshot-200.jpg"
 				></img>
-				<div className="text-xl pl-8 max-w-4xl">
+				<div className="text-xl max-w-4xl pb-8">
 					<h2 className="text-4xl pb-8 lg:pt-4">Who's this guy?</h2>
 					<p>
 						A creative full-stack developer, with a focus on modern front-end development.{' '}
@@ -27,8 +33,6 @@ const HomeContainer = (): JSX.Element => {
 						</span>{' '}
 						when the weather allows it.
 					</p>
-					<br />
-					{/* <p>Check out the stuff I've made below</p> */}
 				</div>
 			</header>
 
@@ -57,7 +61,9 @@ const HomeContainer = (): JSX.Element => {
 				</div>
 			</section>
 
-			<ContactInformation />
+			<div className="container mx-auto p-4 py-12">
+				<ContactInformation />
+			</div>
 			{/* {this.renderContact(0 1)} */}
 		</div>
 	)

@@ -24,6 +24,12 @@ const projectsContent: Project[] = [
 		isWide: true,
 	},
 	{
+		title: '404 Pixelgolf',
+		tags: ['React', 'Hooks'],
+		slug: '/projects/404',
+		img: '/project-covers/404.png',
+	},
+	{
 		title: 'Nodejs Q&A app',
 		tags: ['Websockets', 'Express', 'MongoDB'],
 		slug: '/projects/live-qa',
@@ -34,12 +40,6 @@ const projectsContent: Project[] = [
 		tags: ['PHP/Laravel'],
 		slug: '/projects/dive-advisor',
 		img: '/project-covers/dive-advisor.jpg',
-	},
-	{
-		title: '404 Pixelgolf',
-		tags: ['React', 'Hooks'],
-		slug: '/projects/404',
-		img: '/project-covers/404.png',
 	},
 	{
 		title: 'Dracula Google Doodle',
