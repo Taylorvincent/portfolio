@@ -10,7 +10,7 @@ const Layout = ({
 	children,
 	title = 'Taylor Vincent, full stack developer portfolio',
 }: Props): JSX.Element => (
-	<div>
+	<div className="dark:text-white dark:bg-gray-900">
 		<Head>
 			<title>{title}</title>
 			<meta charSet="utf-8" />

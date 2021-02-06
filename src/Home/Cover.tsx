@@ -22,6 +22,7 @@ const Cover = ({ project }: Props): JSX.Element => {
 					font-bold text-3xl 
 					m-4 p-4 px-6
 					bg-white group-hover:underline
+					dark:bg-gray-900
 				`}
 			>
 				{project.title}
@@ -30,7 +31,11 @@ const Cover = ({ project }: Props): JSX.Element => {
 				<ul className={'flex flex-wrap justify-end'}>
 					{project.tags.map((tag, i) => {
 						return (
-							<li className="p-2 px-4 mr-4 mb-4 bg-white font-bold" key={i}>
+							<li
+								className="p-2 px-4 mr-4 mb-4 bg-white font-bold dark:bg-gray-900
+							"
+								key={i}
+							>
 								{tag}
 							</li>
 						)
