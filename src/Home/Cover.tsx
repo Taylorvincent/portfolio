@@ -12,7 +12,7 @@ const Cover = ({ project }: Props): JSX.Element => {
 				mt-8 md:mt-0 
 				bg-cover bg-center 
 				transition-all 
-				cursor-pointer underline md:no-underline
+				cursor-pointer 
 			`}
 			style={{ backgroundImage: `url(${project.img})`, height: '400px' }}
 		>
@@ -21,6 +21,7 @@ const Cover = ({ project }: Props): JSX.Element => {
 					inline-block 
 					font-bold text-3xl 
 					m-4 p-4 px-6
+					underline md:no-underline
 					bg-white group-hover:underline
 					dark:bg-gray-900
 				`}
@@ -32,8 +33,7 @@ const Cover = ({ project }: Props): JSX.Element => {
 					{project.tags.map((tag, i) => {
 						return (
 							<li
-								className="p-2 px-4 mr-4 mb-4 bg-white font-bold dark:bg-gray-900
-							"
+								className="p-2 px-4 mr-4 mb-4 bg-white font-bold dark:bg-gray-900 list-none"
 								key={i}
 							>
 								{tag}

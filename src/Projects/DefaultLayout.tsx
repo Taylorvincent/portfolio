@@ -13,7 +13,7 @@ const DefaultLayout = ({ content }: Props): JSX.Element => {
 				<Link href="/">{`< Back`}</Link>
 			</div>
 			<div className="container mx-auto min-h-screen p-4">
-				<h1 className="text-7xl mb-8">{content.title}</h1>
+				<h1 className="mb-8">{content.title}</h1>
 				<p className="text-4xl mb-16">{content.description}</p>
 				<div className={styles.embedContainer}>
 					<iframe
