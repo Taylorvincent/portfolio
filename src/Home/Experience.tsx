@@ -1,29 +1,20 @@
 import { CSSProperties, useState } from 'react'
 import exp from '../../data/experience'
+import s from './Experience.module.css'
 
 interface JobCss extends CSSProperties {
 	'--activeJob': number
-	'--highlightSize': string
+	'--buttonWidth': string
 }
 
 const btnWidth = 150
 
 const btnStyle: CSSProperties = {
-	flexBasis: btnWidth,
+	width: btnWidth,
+	minWidth: btnWidth,
 	flexShrink: 0,
 	flexGrow: 0,
-	borderTopColor: 'transparent',
-	borderLeftColor: 'transparent',
-	borderRightColor: 'transparent',
 	borderStyle: 'inset',
-}
-
-const highlightStyle: CSSProperties = {
-	width: '100%',
-	maxWidth: btnWidth,
-	height: 2,
-	position: 'absolute',
-	transform: 'translateX( calc(var(--activeJob) * var(--highlightSize)))',
 }
 
 const Experience = (): JSX.Element => {
@@ -31,28 +22,35 @@ const Experience = (): JSX.Element => {
 
 	const jobCss: JobCss = {
 		'--activeJob': activeJob,
-		'--highlightSize': btnWidth + 'px',
+		'--buttonWidth': btnWidth + 'px',
+		minWidth: btnWidth,
 	}
 	return (
 		<section className="container mx-auto p-8">
-			<h2 className="mb-8">Experience? got it. </h2>
-			<p className="">
-				I've gathered <b>3 years of experience</b> so far, working in these cool companies.
-			</p>
-			<p className="mb-8">If you prefer read this in A4 format. Check out my resume here.</p>
-			<div className="mb-8">
-				<ul className="flex overflow-x-scroll relative" style={jobCss}>
+			{/* <h2 className="mb-8">Experience? got it. </h2> */}
+			<div className="text-xl">
+				<p className="">
+					I've gathered <b>3 years of experience</b> so far, working in these cool companies.
+				</p>
+				<p className="mb-8">If you prefer read this in A4 format. Check out my resume here.</p>
+			</div>
+
+			<div className="lg:flex lg:mx-8">
+				<ul
+					className="flex overflow-x-scroll relative mb-8 lg:flex-col lg:overflow-hidden"
+					style={jobCss}
+				>
 					{exp.map((x, i) => {
 						return (
 							<button
 								className={`${
-									activeJob === i ? 'text-blue-500 bg-white dark:bg-gray-800' : ''
-								} inline-block p-4 whitespace-nowrap cursor-pointer 
-								bg-gray-50 dark:bg-transparent
+									activeJob === i ? 'text-blue-500' : ''
+								} inline-block p-4 py-3 whitespace-nowrap cursor-pointer 
 								border-b-2 border-blue-200 text-center
-								hover:text-blue-500 hover:bg-gray-50 dark:hover:bg-gray-800
-								focus:text-blue-500 focus:bg-gray-50 dark:focus:bg-gray-800
+								hover:text-blue-500 hover:bg-blue-50 dark:hover:bg-gray-800
+								focus:text-blue-500 focus:bg-blue-50 dark:focus:bg-gray-800
 								transition-all
+								lg:border-b-0 lg:border-l-2
 								`}
 								key={x.company.name}
 								onClick={() => setActiveJob(i)}
@@ -63,34 +61,31 @@ const Experience = (): JSX.Element => {
 							</button>
 						)
 					})}
-					<div
-						className="bg-blue-500 transition-all absolute bottom-0"
-						style={highlightStyle}
-					></div>
+					<div className={`bg-blue-500 transition-all  ${s.highlight}`}></div>
 				</ul>
-			</div>
-			<div className="">
-				<h3>
-					{exp[activeJob].role}{' '}
-					<span className="text-blue-500">
-						@{' '}
-						<a className="hover:underline" href={exp[activeJob].company.url}>
-							{exp[activeJob].company.name}
-						</a>
-					</span>
-				</h3>
-				<div className="text-sm text-soft mb-4">
-					<p>{exp[activeJob].company.desc}</p>
-					<p>{exp[activeJob].duration}</p>
+				<div className="my-8 lg:mx-16 lg:my-2 w-full max-w-2xl">
+					<h3 className="font-semibold">
+						{exp[activeJob].role}{' '}
+						<span className="text-blue-500">
+							@{' '}
+							<a className="hover:underline" href={exp[activeJob].company.url}>
+								{exp[activeJob].company.name}
+							</a>
+						</span>
+					</h3>
+					<div className="text-sm text-soft mb-4 lg:mb-8">
+						<p>{exp[activeJob].company.desc}</p>
+						<p>{exp[activeJob].duration}</p>
+					</div>
+					<ul className="mb-4">
+						{exp[activeJob].content.map((c) => (
+							<li key={c} className="ml-4">
+								{c}
+							</li>
+						))}
+					</ul>
+					<p className="flex justify-end">{exp[activeJob].stack}</p>
 				</div>
-				<ul className="mb-4">
-					{exp[activeJob].content.map((c) => (
-						<li key={c} className="ml-4">
-							{c}
-						</li>
-					))}
-				</ul>
-				<p className="flex justify-end">{exp[activeJob].stack}</p>
 			</div>
 		</section>
 	)

@@ -1,0 +1,20 @@
+.highlight {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+	max-width: var(--buttonWidth);
+	height: 2px;
+	position: absolute;
+	transform: translateX( calc(var(--activeJob, 0) * var(--buttonWidth)));
+}
+
+@screen lg {
+  .highlight {
+    top: 0;
+    bottom: auto;
+    width: 2px;
+    height: 20%;
+    /* transform: translateY( calc(var(--activeJob, 0) * var(--buttonWidth))); */
+    transform: translateY(calc(100% * var(--activeJob, 0)));
+  }
+}
