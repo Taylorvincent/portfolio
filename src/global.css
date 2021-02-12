@@ -34,7 +34,13 @@
   }
 }
 
-@layer utilities {
+@layer utilities { 
+
+  .text-link {
+    color: #2867B2;
+    fill: #2867B2;
+  }
+
   .text-soft {
     @apply text-gray-800;
   }

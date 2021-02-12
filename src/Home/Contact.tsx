@@ -3,11 +3,7 @@ const ContactInformation = (): JSX.Element => {
 		<section className="">
 			<a
 				href="https://www.linkedin.com/in/taylorvincent93/"
-				className="underline inline-flex"
-				style={{
-					color: '#2867B2',
-					fill: '#2867B2',
-				}}
+				className="underline inline-flex text-link"
 			>
 				<i style={{ height: '1em', width: '1em', marginRight: '1rem' }}>
 					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
@@ -18,6 +14,9 @@ const ContactInformation = (): JSX.Element => {
 			</a>
 			<p>vincent.sam.taylor@gmail.com</p>
 			<p>+32 476 034 835</p>
+			<a href="/arst" className="text-link underline">
+				Resume
+			</a>
 		</section>
 	)
 }
