@@ -21,17 +21,6 @@
     outline: none;
   }
   
-  a:focus-visible {
-    border-width: 0.125em;
-    border-color: rgb(94, 94, 94);
-    border-style: inset;
-  }
-  
-  @dark {
-    a:focus-visible {
-      border-color: white;
-    }
-  }
 }
 
 @layer utilities { 
