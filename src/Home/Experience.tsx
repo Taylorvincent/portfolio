@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-target-blank */
 import { CSSProperties, useState } from 'react'
 import exp from '../../data/experience'
 import s from './Experience.module.css'
@@ -27,12 +28,12 @@ const Experience = (): JSX.Element => {
 	}
 	return (
 		<section className="container mx-auto p-8">
-			{/* <h2 className="mb-8">Experience? got it. </h2> */}
-			<div className="text-xl">
+			<h2 className="mb-8">Where I've worked</h2>
+			<div className="text-xl mb-16">
 				<p className="">
-					I've gathered <b>3 years of experience</b> so far, working in these cool companies.
+					I've gathered <b>3 years of experience</b> so far in these cool companies.
 				</p>
-				<p className="mb-8">If you prefer read this in A4 format. Check out my resume here.</p>
+				{/* <p className="">Download resume</p> */}
 			</div>
 
 			<div className="lg:flex lg:mx-8">
@@ -68,7 +69,11 @@ const Experience = (): JSX.Element => {
 						{exp[activeJob].role}{' '}
 						<span className="text-blue-500">
 							@{' '}
-							<a className="hover:underline" href={exp[activeJob].company.url}>
+							<a
+								target={exp[activeJob].company.url[0] === '/' ? '_self' : '_blank'}
+								className="hover:underline"
+								href={exp[activeJob].company.url}
+							>
 								{exp[activeJob].company.name}
 							</a>
 						</span>

@@ -1,9 +1,9 @@
 const Header = (): JSX.Element => {
 	return (
-		<header className="container flex flex-wrap mx-auto p-8 pb-0 bg-black text-white">
+		<header className="container flex flex-wrap mx-auto mb-8 p-8 pb-0 bg-black text-white">
 			<img
 				className="rounded-full mb-8 mr-8"
-				style={{ width: 200, height: 200 }}
+				style={{ width: 200, height: 200, filter: 'contrast(135%) brightness(95%)' }}
 				alt="headshot of me!"
 				src="/headshot-200.jpg"
 			></img>
