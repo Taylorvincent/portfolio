@@ -1,5 +1,5 @@
-import NotFound from '../src/404'
-import Layout from '../src/Layout'
+import NotFound from '../../containers/404'
+import Layout from '../../Layout'
 
 const SomeThingWentWrong = (): JSX.Element => {
 	return (

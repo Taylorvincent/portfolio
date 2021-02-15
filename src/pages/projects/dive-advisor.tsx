@@ -1,6 +1,6 @@
 import { ProjectContent } from '../../data/projects'
-import Layout from '../../src/Layout'
-import DefaultLayout from '../../src/Projects/DefaultLayout'
+import Layout from '../../Layout'
+import DefaultLayout from '../../containers/Projects/DefaultLayout'
 
 const content: ProjectContent = {
 	title: 'DiveAdvisor, Instagram for divers',

@@ -18,7 +18,7 @@ import Swearing from './components/Swearing'
 import { useAnimationFrame, animateAnyBalls } from './helpers/animationHelpers'
 
 import { SceneDimensions, GolferState, AnimatingBall, Word } from './interfaces'
-import useLocalStorage from '../utils/hooks/useLocalStorage'
+import useLocalStorage from '../../utils/hooks/useLocalStorage'
 import { pickSwearWord, soundEffect } from './helpers'
 import Scene from './components/Scene'
 import updateSceneDimensions from './helpers/updateSceneDimensions'

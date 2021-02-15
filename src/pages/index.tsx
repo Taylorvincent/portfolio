@@ -1,5 +1,5 @@
-import HomeContainer from '../src/Home'
-import Layout from '../src/Layout'
+import HomeContainer from '../containers/Home'
+import Layout from '../Layout'
 
 const IndexPage = (): JSX.Element => (
 	<Layout>
