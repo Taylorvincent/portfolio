@@ -14,7 +14,7 @@
   }
 
   li {
-    @apply list-inside list-disc mb-2;
+    @apply list-disc mb-2;
   }
 
   a:focus,button:focus {
