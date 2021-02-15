@@ -67,8 +67,8 @@ const NotFound = (): JSX.Element => {
 	// Todo: Censor -> funnier?
 	const [arrSwearWords_In, setArrSwearWords_In] = useState<string[]>(arrSwearWords_orig.slice())
 
-	const audio_swing_ref = useRef(null)
-	const audio_splash_ref = useRef(null)
+	const audio_swing_ref = useRef<HTMLAudioElement>(null)
+	const audio_splash_ref = useRef<HTMLAudioElement>(null)
 
 	// update state dimensions on load and resize
 	useEffect(() => {

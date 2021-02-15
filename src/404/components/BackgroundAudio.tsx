@@ -38,11 +38,11 @@ const BackgroundAudio = (props: Props): JSX.Element => {
 			})
 			setGainNode(audioCtx.createGain())
 		}
-		// return () => {
-		//   if(audioCtx){
-		//     audioCtx.close()
-		//   }
-		// }
+		return () => {
+			if (audioCtx) {
+				audioCtx.close()
+			}
+		}
 	}, [audioCtx])
 
 	useEffect(() => {

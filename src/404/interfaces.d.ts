@@ -62,7 +62,7 @@ export interface PickSwearWord {
 export interface SoundEffect {
 	name: 'swing' | 'splash'
 	volume: number
-	ref: any
+	ref: RefObject<HTMLAudioElement>
 }
 
 export interface Requests {
