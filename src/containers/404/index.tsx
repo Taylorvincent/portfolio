@@ -33,7 +33,7 @@ export const SWING_HIT_DELAY = 460
 export const SWEAR_DELAY = BALL_ANIMATION_DURATION + SWING_HIT_DELAY // == ball landing? == animation duration ??
 
 const NotFound = (): JSX.Element => {
-	const [state, setState] = useState<SceneDimensions>({
+	const [sceneState, setSceneState] = useState<SceneDimensions>({
 		window_width: 0,
 		window_height: 0,
 		scene_scale: 0,
@@ -72,14 +72,17 @@ const NotFound = (): JSX.Element => {
 
 	// update state dimensions on load and resize
 	useEffect(() => {
-		updateSceneDimensions(state, setState)
-		window.addEventListener('resize', updateSceneDimensions.bind(null, state, setState))
+		updateSceneDimensions(sceneState, setSceneState)
+		window.addEventListener('resize', updateSceneDimensions.bind(null, sceneState, setSceneState))
 		// Spawn dialog
 		setTimeout(() => {
 			toggleDialog(true)
 		}, 2000)
 
-		return window.removeEventListener('resize', updateSceneDimensions.bind(null, state, setState))
+		return window.removeEventListener(
+			'resize',
+			updateSceneDimensions.bind(null, sceneState, setSceneState)
+		)
 	}, [])
 
 	// Handle ball animation
@@ -92,11 +95,11 @@ const NotFound = (): JSX.Element => {
 			<audio ref={audio_swing_ref} src={audio_swing}></audio>
 			<audio ref={audio_splash_ref} src={audio_splash}></audio>
 
-			<Scene {...state} />
+			<Scene {...sceneState} />
 
 			<BackgroundAudio volume={volume} userMediaApproved={userMediaApproved} />
 
-			<AnimatingBalls balls={ballsArr} scene_scale={state.scene_scale} />
+			<AnimatingBalls balls={ballsArr} scene_scale={sceneState.scene_scale} />
 
 			<div
 				id="golfer"
@@ -109,10 +112,10 @@ const NotFound = (): JSX.Element => {
 						setGolferState({ isAnimating: true })
 					}, 10)
 
-					const rand_end = Math.floor((Math.random() * state.scene_height) / 5)
+					const rand_end = Math.floor((Math.random() * sceneState.scene_height) / 5)
 					const rand_bezier = {
-						x: Math.floor((Math.random() - 0.5) * 2 * state.scene_height * 0.2),
-						y: Math.floor((Math.random() - 0.5) * 2 * state.scene_height * 0.2),
+						x: Math.floor((Math.random() - 0.5) * 2 * sceneState.scene_height * 0.2),
+						y: Math.floor((Math.random() - 0.5) * 2 * sceneState.scene_height * 0.2),
 					}
 
 					const newBall = {
@@ -120,11 +123,11 @@ const NotFound = (): JSX.Element => {
 						controlPointNudge: rand_bezier,
 						progress: 0,
 						position: {
-							draw: state.ballPositions.start,
-							start: state.ballPositions.start,
+							draw: sceneState.ballPositions.start,
+							start: sceneState.ballPositions.start,
 							end: {
-								x: state.ballPositions.end_water.x - rand_end,
-								y: state.ballPositions.end_water.y + rand_end / 2,
+								x: sceneState.ballPositions.end_water.x - rand_end,
+								y: sceneState.ballPositions.end_water.y + rand_end / 2,
 							},
 						},
 					}
@@ -135,8 +138,8 @@ const NotFound = (): JSX.Element => {
 						setWords,
 						setArrSwearWords_In,
 						arrSwearWords_In,
-						scene_scale: state.scene_scale,
-						scene_width: state.window_width,
+						scene_scale: sceneState.scene_scale,
+						scene_width: sceneState.window_width,
 					})
 
 					setTimeout(() => {
@@ -154,12 +157,12 @@ const NotFound = (): JSX.Element => {
 				}}
 				style={{
 					backgroundImage: `url(${golfsprite})`,
-					transform: `scale(${state.scene_scale})`,
-					top: state.golfer_y,
+					transform: `scale(${sceneState.scene_scale})`,
+					top: sceneState.golfer_y,
 				}}
 			></div>
 
-			<Swearing words={words} golfer_top={state.golfer_y} />
+			<Swearing words={words} golfer_top={sceneState.golfer_y} />
 			<BottomInfo
 				volume={volume}
 				setVolume={setVolume}
