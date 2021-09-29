@@ -23,6 +23,7 @@ import { pickSwearWord, soundEffect } from './helpers'
 import Scene from './components/Scene'
 import updateSceneDimensions from './helpers/updateSceneDimensions'
 import BlinkingTextModal from './components/BlinkingTextModal'
+import { getNewBall } from './helpers/gameLogic'
 
 export const BG_ratio = 384 / 201
 export const ball_height = 20
@@ -90,6 +91,40 @@ const NotFound = (): JSX.Element => {
 		animateAnyBalls(setBallsArr, BALL_ANIMATION_DURATION, SWING_HIT_DELAY)
 	})
 
+	const onClickGolfer = (): void => {
+		if (userMediaApproved == false) setUserMediaApproved(true)
+
+		setGolferState({ isAnimating: false })
+		setTimeout(() => {
+			setGolferState({ isAnimating: true })
+		}, 10)
+
+		const newBall = getNewBall(sceneState)
+
+		setBallsArr([...ballsArr, { ...newBall, isShadow: true }, newBall])
+
+		pickSwearWord({
+			setWords,
+			setArrSwearWords_In,
+			arrSwearWords_In,
+			scene_scale: sceneState.scene_scale,
+			scene_width: sceneState.window_width,
+		})
+
+		setTimeout(() => {
+			soundEffect({ name: 'swing', ref: audio_swing_ref, volume })
+		}, 200)
+
+		setTimeout(() => {
+			setBallsLost((balls) => balls + 1)
+			soundEffect({
+				name: 'splash',
+				ref: audio_splash_ref,
+				volume: 0.33 * volume,
+			})
+		}, SWEAR_DELAY)
+	}
+
 	return (
 		<div className="pixelgolf">
 			<audio ref={audio_swing_ref} src={audio_swing}></audio>
@@ -104,57 +139,7 @@ const NotFound = (): JSX.Element => {
 			<div
 				id="golfer"
 				className={`${golferState.isAnimating && 'golfer-animation'}`}
-				onClick={() => {
-					if (userMediaApproved == false) setUserMediaApproved(true)
-
-					setGolferState({ isAnimating: false })
-					setTimeout(() => {
-						setGolferState({ isAnimating: true })
-					}, 10)
-
-					const rand_end = Math.floor((Math.random() * sceneState.scene_height) / 5)
-					const rand_bezier = {
-						x: Math.floor((Math.random() - 0.5) * 2 * sceneState.scene_height * 0.2),
-						y: Math.floor((Math.random() - 0.5) * 2 * sceneState.scene_height * 0.2),
-					}
-
-					const newBall = {
-						startTime: performance.now(),
-						controlPointNudge: rand_bezier,
-						progress: 0,
-						position: {
-							draw: sceneState.ballPositions.start,
-							start: sceneState.ballPositions.start,
-							end: {
-								x: sceneState.ballPositions.end_water.x - rand_end,
-								y: sceneState.ballPositions.end_water.y + rand_end / 2,
-							},
-						},
-					}
-
-					setBallsArr([...ballsArr, { ...newBall, isShadow: true }, newBall])
-
-					pickSwearWord({
-						setWords,
-						setArrSwearWords_In,
-						arrSwearWords_In,
-						scene_scale: sceneState.scene_scale,
-						scene_width: sceneState.window_width,
-					})
-
-					setTimeout(() => {
-						soundEffect({ name: 'swing', ref: audio_swing_ref, volume })
-					}, 200)
-
-					setTimeout(() => {
-						setBallsLost((balls) => balls + 1)
-						soundEffect({
-							name: 'splash',
-							ref: audio_splash_ref,
-							volume: 0.33 * volume,
-						})
-					}, SWEAR_DELAY)
-				}}
+				onClick={onClickGolfer}
 				style={{
 					backgroundImage: `url(${golfsprite})`,
 					transform: `scale(${sceneState.scene_scale})`,
