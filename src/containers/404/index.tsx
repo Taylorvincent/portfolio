@@ -1,37 +1,24 @@
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/media-has-caption */
-
-import { useState, useEffect, useRef } from 'react'
-
-const golfsprite = '/404/images/golfsprite.png'
-const audio_swing = '/404/sound/golfswing.wav'
-const audio_splash = '/404/sound/plons.wav'
-
-import { arrSwearWords_orig, sentences } from './content'
-
+import { useEffect, useRef, useState } from 'react'
+import useLocalStorage from '../../utils/hooks/useLocalStorage'
+import AnimatingBalls from './components/AnimatingBalls'
 // import BlinkText from './components/BlinkText'
 import BackgroundAudio from './components/BackgroundAudio'
-import AnimatingBalls from './components/AnimatingBalls'
-import BottomInfo from './components/BottomInfo'
-import Swearing from './components/Swearing'
-import { useAnimationFrame, animateAnyBalls } from './helpers/animationHelpers'
-
-import { SceneDimensions, GolferState, AnimatingBall, Word } from './interfaces'
-import useLocalStorage from '../../utils/hooks/useLocalStorage'
-import { pickSwearWord, soundEffect } from './helpers'
-import Scene from './components/Scene'
-import updateSceneDimensions from './helpers/updateSceneDimensions'
 import BlinkingTextModal from './components/BlinkingTextModal'
-import { getNewBall } from './helpers/gameLogic'
+import BottomInfo from './components/BottomInfo'
+import Golfer from './components/Golfer'
+import Scene from './components/Scene'
+import Swearing from './components/Swearing'
+import { BALL_ANIMATION_DURATION, SWING_HIT_DELAY } from './constants'
+import { sentences } from './content'
+import { animateAnyBalls, useAnimationFrame } from './helpers/animationHelpers'
+import updateSceneDimensions from './helpers/updateSceneDimensions'
+import { AnimatingBall, BallEndDestination, GolferState, SceneDimensions, Word } from './interfaces'
 
-export const BG_ratio = 384 / 201
-export const ball_height = 20
-export const boat_height = 112
-export const golfer_height = 400
-export const BALL_ANIMATION_DURATION = 3600
-export const SWING_HIT_DELAY = 460
-export const SWEAR_DELAY = BALL_ANIMATION_DURATION + SWING_HIT_DELAY // == ball landing? == animation duration ??
+import { SWEAR_DELAY, audio_splash, audio_swing } from './constants'
+import { arrSwearWords_orig } from './content'
+import { pickSwearWord, soundEffect } from './helpers'
+import { getNewBall, getNewDestination } from './helpers/gameLogic'
 
 const NotFound = (): JSX.Element => {
 	const [sceneState, setSceneState] = useState<SceneDimensions>({
@@ -58,32 +45,33 @@ const NotFound = (): JSX.Element => {
 	})
 	const [userMediaApproved, setUserMediaApproved] = useState(false)
 	const [ballsLost, setBallsLost] = useState(0)
+	const [ballsHit, setBallsHit] = useState(0)
 	const [showDialog, toggleDialog] = useState(false)
 	const [volume, setVolume] = useLocalStorage('volume', 0.35)
 	const [golferState, setGolferState] = useState<GolferState>({
 		isAnimating: false,
+		canClick: true,
 	})
 	const [ballsArr, setBallsArr] = useState<AnimatingBall[]>([])
 	const [words, setWords] = useState<Word[]>([])
-	// Todo: Censor -> funnier?
-	const [arrSwearWords_In, setArrSwearWords_In] = useState<string[]>(arrSwearWords_orig.slice())
 
-	const audio_swing_ref = useRef<HTMLAudioElement>(null)
+	// Todo: Censor -> funnier?
+
 	const audio_splash_ref = useRef<HTMLAudioElement>(null)
+	const audio_swing_ref = useRef<HTMLAudioElement>(null)
+
+	const [arrSwearWords_In, setArrSwearWords_In] = useState<string[]>(arrSwearWords_orig.slice())
 
 	// update state dimensions on load and resize
 	useEffect(() => {
-		updateSceneDimensions(sceneState, setSceneState)
-		window.addEventListener('resize', updateSceneDimensions.bind(null, sceneState, setSceneState))
+		updateSceneDimensions(setSceneState)
+		window.addEventListener('resize', updateSceneDimensions.bind(null, setSceneState))
 		// Spawn dialog
 		setTimeout(() => {
 			toggleDialog(true)
 		}, 2000)
 
-		return window.removeEventListener(
-			'resize',
-			updateSceneDimensions.bind(null, sceneState, setSceneState)
-		)
+		return window.removeEventListener('resize', updateSceneDimensions.bind(null, setSceneState))
 	}, [])
 
 	// Handle ball animation
@@ -94,35 +82,45 @@ const NotFound = (): JSX.Element => {
 	const onClickGolfer = (): void => {
 		if (userMediaApproved == false) setUserMediaApproved(true)
 
-		setGolferState({ isAnimating: false })
+		if (!golferState.canClick) {
+			return
+		}
+
+		const destination = getNewDestination(ballsHit)
+
+		setGolferState({ isAnimating: false, canClick: false })
 		setTimeout(() => {
-			setGolferState({ isAnimating: true })
+			setGolferState({ isAnimating: true, canClick: true })
 		}, 10)
 
-		const newBall = getNewBall(sceneState)
+		const newBall = getNewBall(sceneState, destination)
 
-		setBallsArr([...ballsArr, { ...newBall, isShadow: true }, newBall])
-
-		pickSwearWord({
-			setWords,
-			setArrSwearWords_In,
-			arrSwearWords_In,
-			scene_scale: sceneState.scene_scale,
-			scene_width: sceneState.window_width,
-		})
-
+		setBallsArr((ballsArr) => [...ballsArr, { ...newBall, isShadow: true }, newBall])
+		setBallsHit((balls) => balls + 1)
 		setTimeout(() => {
 			soundEffect({ name: 'swing', ref: audio_swing_ref, volume })
 		}, 200)
 
-		setTimeout(() => {
-			setBallsLost((balls) => balls + 1)
-			soundEffect({
-				name: 'splash',
-				ref: audio_splash_ref,
-				volume: 0.33 * volume,
+		if (destination === BallEndDestination.HOLE_IN_ONE) {
+			//
+		} else {
+			pickSwearWord({
+				setWords,
+				setArrSwearWords_In,
+				arrSwearWords_In,
+				scene_scale: sceneState.scene_scale,
+				scene_width: sceneState.window_width,
 			})
-		}, SWEAR_DELAY)
+
+			setTimeout(() => {
+				setBallsLost((balls) => balls + 1)
+				soundEffect({
+					name: 'splash',
+					ref: audio_splash_ref,
+					volume: 0.33 * volume,
+				})
+			}, SWEAR_DELAY)
+		}
 	}
 
 	return (
@@ -130,24 +128,16 @@ const NotFound = (): JSX.Element => {
 			<audio ref={audio_swing_ref} src={audio_swing}></audio>
 			<audio ref={audio_splash_ref} src={audio_splash}></audio>
 
-			<Scene {...sceneState} />
+			<Scene sceneState={sceneState} />
 
 			<BackgroundAudio volume={volume} userMediaApproved={userMediaApproved} />
 
 			<AnimatingBalls balls={ballsArr} scene_scale={sceneState.scene_scale} />
 
-			<div
-				id="golfer"
-				className={`${golferState.isAnimating && 'golfer-animation'}`}
-				onClick={onClickGolfer}
-				style={{
-					backgroundImage: `url(${golfsprite})`,
-					transform: `scale(${sceneState.scene_scale})`,
-					top: sceneState.golfer_y,
-				}}
-			></div>
+			<Golfer golferState={golferState} sceneState={sceneState} onClickGolfer={onClickGolfer} />
 
 			<Swearing words={words} golfer_top={sceneState.golfer_y} />
+
 			<BottomInfo
 				volume={volume}
 				setVolume={setVolume}

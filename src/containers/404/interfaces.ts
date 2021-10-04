@@ -1,4 +1,5 @@
-import { Dispatch, SetStateAction } from 'react'
+import { Dispatch, RefObject, SetStateAction } from 'react'
+
 export interface SceneDimensions {
 	window_width: number
 	window_height: number
@@ -11,6 +12,7 @@ export interface SceneDimensions {
 
 export interface GolferState {
 	isAnimating: boolean
+	canClick: boolean
 }
 
 export interface BallPositions {
@@ -74,4 +76,9 @@ export interface Requests {
 export interface Sources {
 	wii_loop: AudioBufferSourceNode
 	wii_preloop: AudioBufferSourceNode
+}
+
+export enum BallEndDestination {
+	WATER = 'WATER',
+	HOLE_IN_ONE = 'HOLE_IN_ONE',
 }

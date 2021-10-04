@@ -1,11 +1,11 @@
 import { SoundEffect, PickSwearWord } from '../interfaces'
 
 import { arrSwearWords_orig } from '../content'
-import { SWEAR_DELAY } from '..'
+import { SWEAR_DELAY } from '../constants'
 
 export const soundEffect = ({ volume, ref }: SoundEffect): void => {
 	if (ref.current) {
-		const cloneAudio = ref.current.cloneNode(true)
+		const cloneAudio = ref.current.cloneNode(true) as NonNullable<typeof ref.current>
 		cloneAudio.volume = volume
 		cloneAudio.play()
 	}

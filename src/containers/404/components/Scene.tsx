@@ -6,13 +6,13 @@ const boatsprite = '/404/images/boatsprite.png'
 
 import { SceneDimensions } from '../interfaces'
 
-const Scene = (props: SceneDimensions): JSX.Element => {
+const Scene = ({ sceneState }: { sceneState: SceneDimensions }): JSX.Element => {
 	return (
 		<div>
 			<style>
 				{`.BG{
-				height: ${props.window_height}px;
-				width: ${props.window_width}px;
+				height: ${sceneState.window_height}px;
+				width: ${sceneState.window_width}px;
 			}`}
 			</style>
 
@@ -21,12 +21,12 @@ const Scene = (props: SceneDimensions): JSX.Element => {
 			<div className="BG BG-1" style={{ backgroundImage: `url(${BG_vijver})` }}></div>
 			<div className="BG BG-1 BG-clouds" style={{ backgroundImage: `url(${BG_clouds})` }}></div>
 			<div className="BG BG-1" style={{ backgroundImage: `url(${BG_sea})` }}></div>
-			<div className="boat" style={{ top: props.boat_y }}>
+			<div className="boat" style={{ top: sceneState.boat_y }}>
 				<div
 					className="boatsprite"
 					style={{
 						backgroundImage: `url(${boatsprite})`,
-						transform: `scale(${props.scene_scale})`,
+						transform: `scale(${sceneState.scene_scale})`,
 					}}
 				></div>
 			</div>
@@ -36,8 +36,8 @@ const Scene = (props: SceneDimensions): JSX.Element => {
 				className="poshelper"
 				style={{
 					position: 'absolute',
-					left: props.ballPositions.end_hole.x,
-					top: props.ballPositions.end_hole.y,
+					left: sceneState.ballPositions.end_hole.x,
+					top: sceneState.ballPositions.end_hole.y,
 					backgroundColor: 'red',
 					padding: 2,
 				}}
