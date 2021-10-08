@@ -11,10 +11,10 @@
   position: relative;
   width: 14px;
   height: 14px;
-  background-color: white;
+  background-color: var(--ball-color, white);
   left: 0;
   top: 0;
-  transform: scale(calc(var(--scene_scale) * 1.2));
+  transform: scale(calc(var(--scene_scale_x) * 1.2));
   transform-origin: top;
   transition: all 2.5s;
   transition-timing-function: cubic-bezier(0,1,1,1);
@@ -23,7 +23,7 @@
 
 .WATER .ball,
 .HOLE_IN_ONE .ball {
-  transform: scale(calc(var(--scene_scale) * .6));
+  transform: scale(calc(var(--scene_scale_x) * .6));
 }
 
 .ball-X {
@@ -32,9 +32,9 @@
   transform: translateX(var(--ballpositions-start-x));
   transition-timing-function: cubic-bezier(
     0, 
-    calc(var(--scene_scale) * var(--ball-x-bezier-start, 1)),
+    calc(var(--ball-x-bezier-start, 1)),
     1, 
-    calc(var(--scene_scale) * var(--ball-x-bezier-end, 1))
+    calc(var(--ball-x-bezier-end, 1))
   );
 }
 
@@ -44,9 +44,9 @@
   transform: translateY(var(--ballpositions-start-y));
   transition-timing-function: cubic-bezier(
     0,
-    calc(var(--scene_scale) * var(--ball-y-bezier-start, 1) + 4 * var(--scene_scale)),
+    calc( var(--ball-y-bezier-start, 1)),
     1,
-    calc(var(--scene_scale) * var(--ball-y-bezier-end, 1) + 4 * var(--scene_scale))
+    calc( var(--ball-y-bezier-end, 1))
   );
 }
 
@@ -68,20 +68,3 @@
 .HOLE_IN_ONE .ball-Y{
   transform: translateY(var(--ballpositions-end_hole-y));
 }
-
-
-/* 
-.balldiv.test-backup{
-  transform: translateX(0);
-  animation: flyBallX 2.7s infinite;
-  transition-timing-function: cubic-bezier(1,1,1,1);
-  animation-direction: alternate-reverse;
-}
-  
-.balldiv-wrapper.test-backup{
-  transform: translateY(0);
-  animation: flyBallY 2.7s infinite;
-  animation-timing-function: cubic-bezier(0,2,1,2);
-  animation-direction: alternate-reverse;
-}
-*/

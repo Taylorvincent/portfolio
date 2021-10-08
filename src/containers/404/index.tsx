@@ -10,7 +10,7 @@ import Scene from './components/Scene'
 import Swearing from './components/Swearing'
 import { sentences } from './content'
 import updateSceneDimensions from './helpers/updateSceneDimensions'
-import { BallEndDestination, GolferState, SceneDimensions, Word } from './interfaces'
+import { BallEndDestination, GolferState, SceneState, Word } from './interfaces'
 
 import { SWEAR_DELAY, audio_splash, audio_swing } from './constants'
 import { arrSwearWords_orig } from './content'
@@ -19,10 +19,11 @@ import { getNewDestination } from './helpers/gameLogic'
 import AnimatingBalls, { launchBall } from './components/AnimatingBalls'
 
 const NotFound = (): JSX.Element => {
-	const [sceneState, setSceneState] = useState<SceneDimensions>({
+	const [sceneState, setSceneState] = useState<SceneState>({
 		window_width: 0,
 		window_height: 0,
-		scene_scale: 0,
+		scene_scale_x: 0,
+		scene_scale_y: 0,
 		scene_height: 0,
 		boat_y: 0,
 		golfer_y: 0,
@@ -87,7 +88,7 @@ const NotFound = (): JSX.Element => {
 		}, 10)
 
 		if (animatingBallsContainer.current) {
-			launchBall(animatingBallsContainer.current, destination)
+			launchBall(animatingBallsContainer.current, destination, sceneState)
 		}
 
 		setBallsHit((balls) => balls + 1)
@@ -102,7 +103,7 @@ const NotFound = (): JSX.Element => {
 				setWords,
 				setArrSwearWords_In,
 				arrSwearWords_In,
-				scene_scale: sceneState.scene_scale,
+				scene_scale_x: sceneState.scene_scale_x,
 				scene_width: sceneState.window_width,
 			})
 

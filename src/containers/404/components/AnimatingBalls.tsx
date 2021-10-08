@@ -1,6 +1,6 @@
 import { Ref } from 'react'
 import { SWING_HIT_DELAY } from '../constants'
-import { BallEndDestination } from '../interfaces'
+import { BallEndDestination, SceneState } from '../interfaces'
 interface Props {
 	containerRef: Ref<HTMLDivElement>
 }
@@ -13,7 +13,8 @@ export default AnimatingBalls
 
 export const launchBall = (
 	animatingBallsContainer: HTMLDivElement,
-	destination: BallEndDestination
+	destination: BallEndDestination,
+	sceneState: SceneState
 ): void => {
 	const ballWrapperDiv = document.createElement('div')
 	const ballDiv = document.createElement('div')
@@ -28,21 +29,39 @@ export const launchBall = (
 	xDiv.appendChild(yDiv)
 	yDiv.appendChild(ballDiv)
 
-	ballWrapperDiv.ontransitionend = () => {
-		if (destination === BallEndDestination.WATER) {
-			ballWrapperDiv.remove()
-		}
-	}
+	const xStart = ((Math.random() - 0.5) * 4 * sceneState.scene_scale_x).toFixed(2)
+	const xEnd = ((Math.random() - 0.5) * 4 * sceneState.scene_scale_x).toFixed(2)
+	const yStart = (Math.random() + 1 + sceneState.scene_scale_y).toFixed(2)
+	const yEnd = (Math.random() + 1 + sceneState.scene_scale_y).toFixed(2)
 
-	ballWrapperDiv.style.setProperty('--ball-x-bezier-start', ((Math.random() - 0.5) * 4).toFixed(2))
-	ballWrapperDiv.style.setProperty('--ball-x-bezier-end', ((Math.random() - 0.5) * 4).toFixed(2))
+	ballWrapperDiv.style.setProperty('--ball-x-bezier-start', xStart)
+	ballWrapperDiv.style.setProperty('--ball-x-bezier-end', xEnd)
 
-	ballWrapperDiv.style.setProperty('--ball-y-bezier-start', ((Math.random() - 0.5) * 2).toFixed(2))
-	ballWrapperDiv.style.setProperty('--ball-y-bezier-end', ((Math.random() - 0.5) * 2).toFixed(2))
+	ballWrapperDiv.style.setProperty('--ball-y-bezier-start', yStart)
+	ballWrapperDiv.style.setProperty('--ball-y-bezier-end', yEnd)
 
+	const ballShadowWrapperDiv = ballWrapperDiv.cloneNode(true) as HTMLDivElement
+
+	ballShadowWrapperDiv.style.setProperty('--ball-color', '#222')
+	ballShadowWrapperDiv.style.setProperty('--ball-y-bezier-start', '1')
+	ballShadowWrapperDiv.style.setProperty('--ball-y-bezier-end', '1.05')
+
+	animatingBallsContainer.appendChild(ballShadowWrapperDiv)
 	animatingBallsContainer.appendChild(ballWrapperDiv)
+
+	handleTransitions(ballWrapperDiv, destination)
+	handleTransitions(ballShadowWrapperDiv, destination)
 
 	setTimeout(() => {
 		ballWrapperDiv.classList.add(destination)
+		ballShadowWrapperDiv.classList.add(destination)
 	}, SWING_HIT_DELAY)
+}
+
+const handleTransitions = (ballDiv: HTMLDivElement, destination: BallEndDestination): void => {
+	ballDiv.ontransitionend = () => {
+		if (destination === BallEndDestination.WATER) {
+			ballDiv.remove()
+		}
+	}
 }

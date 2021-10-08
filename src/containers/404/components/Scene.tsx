@@ -4,9 +4,9 @@ const BG_sea = '/404/images/BG_sea.png'
 const BG_clouds = '/404/images/BG_clouds.png'
 const boatsprite = '/404/images/boatsprite.png'
 
-import { SceneDimensions } from '../interfaces'
+import { SceneState } from '../interfaces'
 
-const Scene = ({ sceneState }: { sceneState: SceneDimensions }): JSX.Element => {
+const Scene = ({ sceneState }: { sceneState: SceneState }): JSX.Element => {
 	return (
 		<div>
 			<style>
@@ -26,7 +26,7 @@ const Scene = ({ sceneState }: { sceneState: SceneDimensions }): JSX.Element => 
 					className="boatsprite"
 					style={{
 						backgroundImage: `url(${boatsprite})`,
-						transform: `scale(${sceneState.scene_scale})`,
+						transform: `scale(${sceneState.scene_scale_x})`,
 					}}
 				></div>
 			</div>

@@ -1,9 +1,10 @@
 import { Dispatch, RefObject, SetStateAction } from 'react'
 
-export interface SceneDimensions {
+export interface SceneState {
 	window_width: number
 	window_height: number
-	scene_scale: number
+	scene_scale_x: number
+	scene_scale_y: number
 	scene_height: number
 	boat_y: number
 	golfer_y: number
@@ -43,7 +44,7 @@ export interface PickSwearWord {
 	arrSwearWords_In: string[]
 	setArrSwearWords_In: Dispatch<SetStateAction<string[]>>
 	setWords: Dispatch<SetStateAction<Word[]>>
-	scene_scale: number
+	scene_scale_x: number
 	scene_width: number
 }
 

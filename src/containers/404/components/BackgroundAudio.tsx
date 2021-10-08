@@ -131,7 +131,6 @@ const startWiiMusic = (
 				sources.wii_preloop.buffer = buffer
 				sources.wii_preloop.connect(gainNode)
 				sources.wii_preloop.addEventListener('ended', () => {
-					console.log('ended')
 					sources.wii_loop.start(0, 51.75)
 				})
 				sources.wii_preloop.start(0)

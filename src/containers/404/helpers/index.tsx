@@ -15,7 +15,7 @@ export const pickSwearWord = ({
 	arrSwearWords_In,
 	setArrSwearWords_In,
 	setWords,
-	scene_scale,
+	scene_scale_x,
 	scene_width,
 }: PickSwearWord): void => {
 	const random = Math.floor(Math.random() * arrSwearWords_In.length)
@@ -28,8 +28,8 @@ export const pickSwearWord = ({
 		setArrSwearWords_In(words_in)
 	}
 
-	const rannd_left = (Math.random() * 300 - 150) * scene_scale + scene_width / 2
-	const rand_top = (Math.random() * 300 - 150) * scene_scale
+	const rannd_left = (Math.random() * 300 - 150) * scene_scale_x + scene_width / 2
+	const rand_top = (Math.random() * 300 - 150) * scene_scale_x
 
 	setTimeout(() => {
 		setWords((oldWords) => [
