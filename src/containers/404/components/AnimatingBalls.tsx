@@ -40,6 +40,21 @@ export const launchBall = (
 	ballWrapperDiv.style.setProperty('--ball-y-bezier-start', yStart)
 	ballWrapperDiv.style.setProperty('--ball-y-bezier-end', yEnd)
 
+	ballWrapperDiv.style.setProperty(
+		'--ballpositions-end_water-x',
+		(
+			sceneState.ballPositions.end_water.x -
+			Math.random() * 200 * sceneState.scene_scale_x
+		).toString() + 'px'
+	)
+	ballWrapperDiv.style.setProperty(
+		'--ballpositions-end_water-y',
+		(
+			sceneState.ballPositions.end_water.y +
+			Math.random() * 50 * sceneState.scene_scale_y
+		).toString() + 'px'
+	)
+
 	const ballShadowWrapperDiv = ballWrapperDiv.cloneNode(true) as HTMLDivElement
 
 	ballShadowWrapperDiv.style.setProperty('--ball-color', '#222')
