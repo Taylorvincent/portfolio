@@ -1,0 +1,87 @@
+/* X-as bezier mag heel gek doen om hook en slice voor te stelln  */
+/* Y-as bezier is eigenlijk redelijk hetzelfde wegens bal moet hangen in de lucht, enige variatie is hoogte? */
+
+.ball-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.ball{
+  position: relative;
+  width: 14px;
+  height: 14px;
+  background-color: white;
+  left: 0;
+  top: 0;
+  transform: scale(calc(var(--scene_scale) * 1.2));
+  transform-origin: top;
+  transition: all 2.5s;
+  transition-timing-function: cubic-bezier(0,1,1,1);
+  
+}
+
+.WATER .ball,
+.HOLE_IN_ONE .ball {
+  transform: scale(calc(var(--scene_scale) * .6));
+}
+
+.ball-X {
+  position: relative;
+  transition: all 2.5s;
+  transform: translateX(var(--ballpositions-start-x));
+  transition-timing-function: cubic-bezier(
+    0, 
+    calc(var(--scene_scale) * var(--ball-x-bezier-start, 1)),
+    1, 
+    calc(var(--scene_scale) * var(--ball-x-bezier-end, 1))
+  );
+}
+
+.ball-Y {
+  position: relative;
+  transition: all 2.5s;
+  transform: translateY(var(--ballpositions-start-y));
+  transition-timing-function: cubic-bezier(
+    0,
+    calc(var(--scene_scale) * var(--ball-y-bezier-start, 1) + 4 * var(--scene_scale)),
+    1,
+    calc(var(--scene_scale) * var(--ball-y-bezier-end, 1) + 4 * var(--scene_scale))
+  );
+}
+
+/* 
+  todo, 
+  - align destination with enum
+  - maybe even generate this part with function
+*/
+.WATER .ball-X {
+  transform: translateX(var(--ballpositions-end_water-x));
+}
+.WATER .ball-Y{
+  transform: translateY(var(--ballpositions-end_water-y));
+}
+
+.HOLE_IN_ONE .ball-X {
+  transform: translateX(var(--ballpositions-end_hole-x));
+}
+.HOLE_IN_ONE .ball-Y{
+  transform: translateY(var(--ballpositions-end_hole-y));
+}
+
+
+/* 
+.balldiv.test-backup{
+  transform: translateX(0);
+  animation: flyBallX 2.7s infinite;
+  transition-timing-function: cubic-bezier(1,1,1,1);
+  animation-direction: alternate-reverse;
+}
+  
+.balldiv-wrapper.test-backup{
+  transform: translateY(0);
+  animation: flyBallY 2.7s infinite;
+  animation-timing-function: cubic-bezier(0,2,1,2);
+  animation-direction: alternate-reverse;
+}
+*/

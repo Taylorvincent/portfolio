@@ -10,7 +10,6 @@
   left: 100px;
   top: 100px;
   color: white;
-  background-color: rgba($color: #000000, $alpha: 0.5)
 }
 
 .pixelgolf{
@@ -109,27 +108,6 @@
   outline: none;
 }
 
-.balldiv {
-  position: relative;
-  display: block;
-  width: 14px;
-  height: 14px;
-  background-color: white;
-  left: 0;
-  top: 0;
-  // animation: xAxis 2.7s forwards cubic-bezier(.51,0,.04,.6);
-  animation: xAxis 2.7s forwards;
-  animation-delay: .4s;
-}
-
-.balldiv-wrapper {
-  position: absolute;
-  display: block;
-  // animation: yAxis 2.7s forwards cubic-bezier(.07,.44,.81,1.18);
-  animation: yAxis 2.7s forwards;
-  animation-delay: .4s;
-}
-
 .golfer-animation{
   animation: golfersprite 0.7s forwards steps(9, end);
 }
@@ -206,7 +184,7 @@
   width: 100%;
   height: 10px;
 
-  // 21x16
+  /* 21x16 */
 }
 .bottom-info input[type=range]{
   cursor: pointer;

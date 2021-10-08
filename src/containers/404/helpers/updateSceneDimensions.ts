@@ -48,13 +48,21 @@ const updateSceneDimensions = (setState: Dispatch<SetStateAction<SceneDimensions
 
 		const newState = {
 			...prevState,
-			window_width: window_width,
-			window_height: window_height,
-			scene_height: scene_height,
-			scene_scale: scene_scale,
-			boat_y: boat_y,
-			golfer_y: golfer_y,
-			ballPositions: ballPositions,
+			window_width,
+			window_height,
+			scene_height,
+			scene_scale,
+			boat_y,
+			golfer_y,
+			ballPositions,
+		}
+
+		document.documentElement.style.setProperty('--scene_scale', scene_scale.toString())
+
+		for (const [key, positions] of Object.entries(ballPositions)) {
+			for (const [axis, value] of Object.entries(positions)) {
+				document.documentElement.style.setProperty(`--ballpositions-${key}-${axis}`, value + 'px')
+			}
 		}
 
 		return newState

@@ -1,47 +1,48 @@
-import { AnimatingBall } from '../interfaces'
-
+import { Ref } from 'react'
+import { SWING_HIT_DELAY } from '../constants'
+import { BallEndDestination } from '../interfaces'
 interface Props {
-	balls: AnimatingBall[]
-	scene_scale: number
+	containerRef: Ref<HTMLDivElement>
 }
 
-const AnimatingBalls = ({ balls, scene_scale }: Props): JSX.Element => {
-	return (
-		<div>
-			{balls.map((ball) => {
-				let scale
-				if (ball.isShadow) {
-					scale = scene_scale * (1 - ball.progress * 1.4)
-					if (scale < scene_scale * 0.35) {
-						scale = scene_scale * 0.35
-					}
-				} else {
-					scale = scene_scale * (1 - ball.progress * 0.8)
-					if (scale < scene_scale * 0.2) {
-						scale = scene_scale * 0.2
-					}
-				}
-				return (
-					<div
-						key={ball.isShadow ? ball.startTime : -ball.startTime}
-						className="balldiv-wrapper"
-						style={{
-							left: ball.position.draw.x,
-							top: ball.position.draw.y,
-							transform: `scale(${scale})`,
-						}}
-					>
-						<div
-							className="balldiv"
-							style={{
-								backgroundColor: ball.isShadow ? 'rgba(0,0,0,0.5)' : '#FFF',
-							}}
-						></div>
-					</div>
-				)
-			})}
-		</div>
-	)
+const AnimatingBalls = ({ containerRef }: Props): JSX.Element => {
+	return <div className="animating-balls-container" ref={containerRef}></div>
 }
 
 export default AnimatingBalls
+
+export const launchBall = (
+	animatingBallsContainer: HTMLDivElement,
+	destination: BallEndDestination
+): void => {
+	const ballWrapperDiv = document.createElement('div')
+	const ballDiv = document.createElement('div')
+	const xDiv = document.createElement('div')
+	const yDiv = document.createElement('div')
+	ballWrapperDiv.className = 'ball-wrapper'
+	xDiv.className = 'ball-X'
+	yDiv.className = 'ball-Y'
+	ballDiv.className = 'ball'
+
+	ballWrapperDiv.appendChild(xDiv)
+	xDiv.appendChild(yDiv)
+	yDiv.appendChild(ballDiv)
+
+	ballWrapperDiv.ontransitionend = () => {
+		if (destination === BallEndDestination.WATER) {
+			ballWrapperDiv.remove()
+		}
+	}
+
+	ballWrapperDiv.style.setProperty('--ball-x-bezier-start', ((Math.random() - 0.5) * 4).toFixed(2))
+	ballWrapperDiv.style.setProperty('--ball-x-bezier-end', ((Math.random() - 0.5) * 4).toFixed(2))
+
+	ballWrapperDiv.style.setProperty('--ball-y-bezier-start', ((Math.random() - 0.5) * 2).toFixed(2))
+	ballWrapperDiv.style.setProperty('--ball-y-bezier-end', ((Math.random() - 0.5) * 2).toFixed(2))
+
+	animatingBallsContainer.appendChild(ballWrapperDiv)
+
+	setTimeout(() => {
+		ballWrapperDiv.classList.add(destination)
+	}, SWING_HIT_DELAY)
+}

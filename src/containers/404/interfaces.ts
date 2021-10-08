@@ -26,23 +26,9 @@ export interface Point {
 	y: number
 }
 
-export interface AnimatingBall {
-	startTime: number
-	progress: number
-	isShadow?: boolean
-	controlPointNudge: Point
-	position: {
-		draw: Point
-		start: Point
-		end: Point
-	}
-}
-
 export interface OnClickGolfer {
 	setGolferState: Dispatch<SetStateAction<GolferState>>
 	ballPositions: BallPositions
-	ballsArr: AnimatingBall[]
-	setBallsArr: Dispatch<SetStateAction<AnimatingBall[]>>
 }
 
 export interface Word {

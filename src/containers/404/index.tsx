@@ -1,7 +1,6 @@
 /* eslint-disable jsx-a11y/media-has-caption */
 import { useEffect, useRef, useState } from 'react'
 import useLocalStorage from '../../utils/hooks/useLocalStorage'
-import AnimatingBalls from './components/AnimatingBalls'
 // import BlinkText from './components/BlinkText'
 import BackgroundAudio from './components/BackgroundAudio'
 import BlinkingTextModal from './components/BlinkingTextModal'
@@ -9,16 +8,15 @@ import BottomInfo from './components/BottomInfo'
 import Golfer from './components/Golfer'
 import Scene from './components/Scene'
 import Swearing from './components/Swearing'
-import { BALL_ANIMATION_DURATION, SWING_HIT_DELAY } from './constants'
 import { sentences } from './content'
-import { animateAnyBalls, useAnimationFrame } from './helpers/animationHelpers'
 import updateSceneDimensions from './helpers/updateSceneDimensions'
-import { AnimatingBall, BallEndDestination, GolferState, SceneDimensions, Word } from './interfaces'
+import { BallEndDestination, GolferState, SceneDimensions, Word } from './interfaces'
 
 import { SWEAR_DELAY, audio_splash, audio_swing } from './constants'
 import { arrSwearWords_orig } from './content'
 import { pickSwearWord, soundEffect } from './helpers'
-import { getNewBall, getNewDestination } from './helpers/gameLogic'
+import { getNewDestination } from './helpers/gameLogic'
+import AnimatingBalls, { launchBall } from './components/AnimatingBalls'
 
 const NotFound = (): JSX.Element => {
 	const [sceneState, setSceneState] = useState<SceneDimensions>({
@@ -52,13 +50,13 @@ const NotFound = (): JSX.Element => {
 		isAnimating: false,
 		canClick: true,
 	})
-	const [ballsArr, setBallsArr] = useState<AnimatingBall[]>([])
 	const [words, setWords] = useState<Word[]>([])
 
 	// Todo: Censor -> funnier?
 
 	const audio_splash_ref = useRef<HTMLAudioElement>(null)
 	const audio_swing_ref = useRef<HTMLAudioElement>(null)
+	const animatingBallsContainer = useRef<HTMLDivElement>(null)
 
 	const [arrSwearWords_In, setArrSwearWords_In] = useState<string[]>(arrSwearWords_orig.slice())
 
@@ -74,11 +72,6 @@ const NotFound = (): JSX.Element => {
 		return window.removeEventListener('resize', updateSceneDimensions.bind(null, setSceneState))
 	}, [])
 
-	// Handle ball animation
-	useAnimationFrame(() => {
-		animateAnyBalls(setBallsArr, BALL_ANIMATION_DURATION, SWING_HIT_DELAY)
-	})
-
 	const onClickGolfer = (): void => {
 		if (userMediaApproved == false) setUserMediaApproved(true)
 
@@ -93,9 +86,10 @@ const NotFound = (): JSX.Element => {
 			setGolferState({ isAnimating: true, canClick: true })
 		}, 10)
 
-		const newBall = getNewBall(sceneState, destination)
+		if (animatingBallsContainer.current) {
+			launchBall(animatingBallsContainer.current, destination)
+		}
 
-		setBallsArr((ballsArr) => [...ballsArr, { ...newBall, isShadow: true }, newBall])
 		setBallsHit((balls) => balls + 1)
 		setTimeout(() => {
 			soundEffect({ name: 'swing', ref: audio_swing_ref, volume })
@@ -125,6 +119,9 @@ const NotFound = (): JSX.Element => {
 
 	return (
 		<div className="pixelgolf">
+			<link rel="stylesheet" type="text/css" href="/404/styles.css" media="screen" />
+			<link rel="stylesheet" type="text/css" href="/404/ballflight.css" media="screen" />
+
 			<audio ref={audio_swing_ref} src={audio_swing}></audio>
 			<audio ref={audio_splash_ref} src={audio_splash}></audio>
 
@@ -132,7 +129,7 @@ const NotFound = (): JSX.Element => {
 
 			<BackgroundAudio volume={volume} userMediaApproved={userMediaApproved} />
 
-			<AnimatingBalls balls={ballsArr} scene_scale={sceneState.scene_scale} />
+			<AnimatingBalls containerRef={animatingBallsContainer} />
 
 			<Golfer golferState={golferState} sceneState={sceneState} onClickGolfer={onClickGolfer} />
 
@@ -152,8 +149,6 @@ const NotFound = (): JSX.Element => {
 							onCloseDialog={() => {
 								toggleDialog(false)
 								setUserMediaApproved(true)
-								// startAudio again if not playing
-								// let volume slider blink
 							}}
 							sentences={sentences}
 						></BlinkingTextModal>
