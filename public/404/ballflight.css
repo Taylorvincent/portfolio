@@ -22,6 +22,7 @@
 }
 
 .WATER .ball,
+.GREEN .ball,
 .HOLE_IN_ONE .ball {
   transform: scale(calc(var(--scene_scale_x) * .6));
 }
@@ -64,7 +65,17 @@
 
 .HOLE_IN_ONE .ball-X {
   transform: translateX(var(--ballpositions-end_hole-x));
+  transition-timing-function: cubic-bezier( 0,0,1,1 );
+ 
 }
 .HOLE_IN_ONE .ball-Y{
   transform: translateY(var(--ballpositions-end_hole-y));
+  transition-timing-function: cubic-bezier( 1,0,1,1 );
+}
+
+.GREEN .ball-X {
+  transform: translateX(var(--ballpositions-end_green-x));
+}
+.GREEN .ball-Y{
+  transform: translateY(var(--ballpositions-end_green-y));
 }

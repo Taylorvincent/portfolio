@@ -55,11 +55,26 @@ export const launchBall = (
 		).toString() + 'px'
 	)
 
+	ballWrapperDiv.style.setProperty(
+		'--ballpositions-end_green-x',
+		(
+			sceneState.ballPositions.end_hole.x +
+			(Math.random() * 200 + 50) * sceneState.scene_scale_x
+		).toString() + 'px'
+	)
+	ballWrapperDiv.style.setProperty(
+		'--ballpositions-end_green-y',
+		(
+			sceneState.ballPositions.end_hole.y +
+			(Math.random() - 0.5) * 40 * sceneState.scene_scale_y
+		).toString() + 'px'
+	)
+
 	const ballShadowWrapperDiv = ballWrapperDiv.cloneNode(true) as HTMLDivElement
 
 	ballShadowWrapperDiv.style.setProperty('--ball-color', '#222')
 	ballShadowWrapperDiv.style.setProperty('--ball-y-bezier-start', '1')
-	ballShadowWrapperDiv.style.setProperty('--ball-y-bezier-end', '1.05')
+	ballShadowWrapperDiv.style.setProperty('--ball-y-bezier-end', '1')
 
 	animatingBallsContainer.appendChild(ballShadowWrapperDiv)
 	animatingBallsContainer.appendChild(ballWrapperDiv)
@@ -68,15 +83,32 @@ export const launchBall = (
 	handleTransitions(ballShadowWrapperDiv, destination)
 
 	setTimeout(() => {
-		ballWrapperDiv.classList.add(destination)
-		ballShadowWrapperDiv.classList.add(destination)
+		ballWrapperDiv.classList.add(
+			destination === BallEndDestination.HOLE_IN_ONE ? 'GREEN' : destination
+		)
+		ballShadowWrapperDiv.classList.add(
+			destination === BallEndDestination.HOLE_IN_ONE ? 'GREEN' : destination
+		)
 	}, SWING_HIT_DELAY)
 }
 
 const handleTransitions = (ballDiv: HTMLDivElement, destination: BallEndDestination): void => {
-	ballDiv.ontransitionend = () => {
+	ballDiv.ontransitionend = (e) => {
 		if (destination === BallEndDestination.WATER) {
 			ballDiv.remove()
+		} else if (destination === BallEndDestination.HOLE_IN_ONE) {
+			if (ballDiv.classList.contains('GREEN')) {
+				ballDiv.classList.replace('GREEN', BallEndDestination.HOLE_IN_ONE)
+			} else {
+				const parentClass = (e.target as HTMLDivElement).parentElement?.className
+				if (
+					parentClass &&
+					parentClass.includes('ball-wrapper') &&
+					parentClass.includes(BallEndDestination.HOLE_IN_ONE)
+				) {
+					ballDiv.remove()
+				}
+			}
 		}
 	}
 }
