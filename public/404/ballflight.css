@@ -18,11 +18,19 @@
   transform-origin: top;
   transition: all 2.5s;
   transition-timing-function: cubic-bezier(0,1,1,1);
-  
 }
 
-.WATER .ball,
+.LANDED .ball,
+.LANDED .ball-X,
+.LANDED .ball-Y {
+  transition: all 1s;
+  transition-timing-function: cubic-bezier(0,.45,1,.57)
+}
+
+.GREEN_HOP .ball,
 .GREEN .ball,
+.WATER .ball,
+.LANDED .ball,
 .HOLE_IN_ONE .ball {
   transform: scale(calc(var(--scene_scale_x) * .6));
 }
@@ -78,4 +86,30 @@
 }
 .GREEN .ball-Y{
   transform: translateY(var(--ballpositions-end_green-y));
+}
+
+.GREEN_HOP .ball-X {
+  transform: translateX(calc(var(--ballpositions-end_green-x) - (5 - var(--ball-hop-counter))*5px));
+}
+.GREEN_HOP .ball-Y{
+  transition-timing-function: cubic-bezier( 
+    0,calc( var(--ball-hop-counter) * var(--ball-hop-counter) * 0.5 + 2),
+    1,calc( var(--ball-hop-counter) * var(--ball-hop-counter) * 0.5 + 1) 
+  );
+  transform: translateY(calc(var(--ballpositions-end_green-y) - (5 - var(--ball-hop-counter))*5px));
+}
+
+.shadow.GREEN_HOP .ball-Y{
+ transition-timing-function: linear;
+}
+
+.shadow.GREEN_HOP,
+.shadow.HOLE_IN_ONE{
+  transform: translateY(2px);
+}
+
+
+.GREEN_HOP .ball-X,
+.GREEN_HOP .ball-Y{
+  transition-duration: calc(var(--ball-hop-counter) * 0.3s);
 }
