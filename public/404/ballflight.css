@@ -113,3 +113,7 @@
 .GREEN_HOP .ball-Y{
   transition-duration: calc(var(--ball-hop-counter) * 0.3s);
 }
+
+.HOLE_IN_ONE .ball-Y{
+  transition-timing-function: linear;
+}

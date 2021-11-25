@@ -77,6 +77,12 @@ export const launchBall = (
 		).toString() + 'px'
 	)
 
+	// Adjust end destination to account for scaling of ball
+	ballWrapperDiv.style.setProperty(
+		'--ballpositions-end_hole-x',
+		(sceneState.ballPositions.end_hole.x - (14 * sceneState.scene_scale_x) / 2).toString() + 'px'
+	)
+
 	const ballShadowWrapperDiv = ballWrapperDiv.cloneNode(true) as HTMLDivElement
 
 	ballShadowWrapperDiv.style.setProperty('--ball-color', '#222')
@@ -129,7 +135,6 @@ const handleTransitions = (ballDiv: HTMLDivElement, destination: BallEndDestinat
 const hop = (ballDiv: HTMLDivElement): void => {
 	const hopCounter = Number(ballDiv.style.getPropertyValue('--ball-hop-counter'))
 	const newHopCounter = hopCounter - 1
-	console.log(newHopCounter)
 
 	requestAnimationFrame(() => {
 		if (newHopCounter) {
