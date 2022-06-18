@@ -69,3 +69,5 @@ export enum BallEndDestination {
 	WATER = 'WATER',
 	HOLE_IN_ONE = 'HOLE_IN_ONE',
 }
+
+export type DestinationCredits = Partial<Record<BallEndDestination, number | undefined>>

@@ -26,8 +26,9 @@ const updateSceneDimensions = (setState: Dispatch<SetStateAction<SceneState>>): 
 			scene_scale_x *= 2
 			scene_height = (window_width * 2) / BG_ratio
 			ballPositions.end_water.x = window_width * 0.25
-			ballPositions.end_hole.x = window_width * 0.375
+			ballPositions.end_hole.x = window_width * 0.371
 		} else {
+			// landscape
 			ballPositions.end_water.x = window_width * 0.37
 			ballPositions.end_hole.x = window_width * 0.436
 		}

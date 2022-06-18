@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 const BG_land = '/404/images/BG_land_pano.png'
 const BG_vijver = '/404/images/BG_vijver.png'
 const BG_sea = '/404/images/BG_sea.png'
@@ -6,7 +8,14 @@ const boatsprite = '/404/images/boatsprite.png'
 
 import { SceneState } from '../interfaces'
 
-const Scene = ({ sceneState }: { sceneState: SceneState }): JSX.Element => {
+interface Props {
+	sceneState: SceneState
+	onClickBoat: (e: any) => void
+}
+
+const removeAnimation = (e: any): void => e.currentTarget.classList.remove('jump')
+
+const Scene = ({ sceneState, onClickBoat }: Props): JSX.Element => {
 	return (
 		<div>
 			<style>
@@ -26,13 +35,14 @@ const Scene = ({ sceneState }: { sceneState: SceneState }): JSX.Element => {
 					className="boatsprite"
 					style={{
 						backgroundImage: `url(${boatsprite})`,
-						transform: `scale(${sceneState.scene_scale_x})`,
 					}}
+					onClick={onClickBoat}
+					onAnimationEnd={removeAnimation}
 				></div>
 			</div>
 			<div className="BG BG-3 BG-animated" style={{ backgroundImage: `url(${BG_land})` }}></div>
 
-			<div
+			{/* <div
 				className="poshelper"
 				style={{
 					position: 'absolute',
@@ -41,7 +51,7 @@ const Scene = ({ sceneState }: { sceneState: SceneState }): JSX.Element => {
 					backgroundColor: 'red',
 					padding: 2,
 				}}
-			></div>
+			></div> */}
 		</div>
 	)
 }
