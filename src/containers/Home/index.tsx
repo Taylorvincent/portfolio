@@ -8,7 +8,7 @@ const HomeContainer = (): JSX.Element => {
 	return (
 		<div>
 			<div className="flex justify-between">
-				<h1 className="p-4 pb-8 lg:pb-16">Taylor Vincent</h1>
+				<h1 className="p-4 pb-8 lg:pb-16">Vincent Taylor</h1>
 				<div className="p-4 pt-6 hidden md:block">
 					<ContactInformation></ContactInformation>
 				</div>
