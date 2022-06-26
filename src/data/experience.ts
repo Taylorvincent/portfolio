@@ -1,11 +1,31 @@
+const currentMonthsLatestEmployer = Math.floor(
+	(new Date().valueOf() - new Date('2021-04-01').valueOf()) / (1000 * 60 * 60 * 24 * 30)
+)
+
 const experience = [
+	{
+		company: {
+			name: 'Azumuta',
+			desc: 'Bringing industry 4.0 to the manufacturing companies.',
+			url: 'https://www.azumuta.com/en/',
+		},
+		durationText: 'Apr. 2021 - Present',
+		durationMonths: currentMonthsLatestEmployer,
+		role: 'Application developer',
+		stack: 'react (hooks), react-native, typescript, node, mongodb, Meteor',
+		content: [
+			'Happily working a full stack position allowing me to independently create new features in Azumuta.',
+			'E.g. dashboards for performance metrics or enhancements to existing features.',
+		],
+	},
 	{
 		company: {
 			name: '3D Aim Trainer',
 			desc: 'Online training platform for gamers.',
 			url: 'https://www.3daimtrainer.com',
 		},
-		duration: 'Jan. 2020 - Jan. 2021',
+		durationText: 'Jan. 2020 - Jan. 2021',
+		durationMonths: 12,
 		role: 'Front-end developer',
 		stack: 'next.js, react (hooks), typescript, styled-components, webpack, sentry, Laravel',
 		content: [
@@ -21,7 +41,8 @@ const experience = [
 			url: 'https://www.sigura.be',
 		},
 		role: 'Full-stack developer',
-		duration: 'Oct. 2018 – Jan. 2020',
+		durationText: 'Oct. 2018 - Jan. 2020',
+		durationMonths: 15,
 		stack: 'php, react, webpack, jquery, css',
 		content: [
 			'Helped maintain legacy jQuery/php codebase. Extended it with new features and updated parts to React when necessary.',
@@ -35,7 +56,8 @@ const experience = [
 			url: '/projects/visualizr',
 		},
 		role: 'Full-stack developer',
-		duration: 'Winter 2017 - 3 months',
+		durationText: 'Winter 2017 - 3 months',
+		durationMonths: 3,
 		stack: 'Three.js, react, redux, express (node.js), mongoose (mongodb)',
 		content: [
 			'Took a break to get creative and extend my thesis project, a browser-based music Visualizr. Tried to convert our POC into a working product.',
@@ -51,7 +73,8 @@ const experience = [
 			url: 'https://www.bbdo.be',
 		},
 		role: 'Full-stack developer',
-		duration: 'Spring & summer 2017 - 6 months',
+		durationText: 'Spring & summer 2017 - 6 months',
+		durationMonths: 6,
 		stack: 'Laravel, scss, gulp',
 		content: [
 			'Back-end focused internship + summer job in this Brussels based agency.',
@@ -66,7 +89,8 @@ const experience = [
 			url: 'https://www.thefridge.tv/',
 		},
 		role: 'Full-stack developer',
-		duration: 'Summer 2016 - 3 months',
+		durationText: 'Summer 2016 - 3 months',
+		durationMonths: 3,
 		stack: 'python, django, flask, css',
 		content: [
 			'Summer job',

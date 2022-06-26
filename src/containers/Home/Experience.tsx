@@ -26,12 +26,17 @@ const Experience = (): JSX.Element => {
 		'--buttonWidth': btnWidth + 'px',
 		minWidth: btnWidth,
 	}
+
+	const monthsExp = exp.reduce((acc, current) => acc + current.durationMonths, 0)
+	const yearsExp = Math.floor(monthsExp / 12)
+	console.log('monthsExp % 12 = ', monthsExp % 12)
+
 	return (
 		<section className="container mx-auto p-8">
 			<h2 className="mb-8">Where I've worked</h2>
 			<div className="text-xl mb-16">
 				<p className="">
-					I've gathered <b>3 years of experience</b> so far in these cool companies.
+					I've gathered <b>{yearsExp} years of experience</b> so far in these cool companies.
 				</p>
 				{/* <p className="">Download resume</p> */}
 			</div>
@@ -80,7 +85,7 @@ const Experience = (): JSX.Element => {
 					</h3>
 					<div className="text-sm text-soft mb-4 lg:mb-8">
 						<p>{exp[activeJob].company.desc}</p>
-						<p>{exp[activeJob].duration}</p>
+						<p>{exp[activeJob].durationText}</p>
 					</div>
 					<ul className="mb-4">
 						{exp[activeJob].content.map((c) => (
