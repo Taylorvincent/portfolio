@@ -34,11 +34,18 @@ export const launchBall = (
 	const yStart = (Math.random() + 1 + sceneState.scene_scale_y).toFixed(2)
 	const yEnd = (Math.random() + 1 + sceneState.scene_scale_y).toFixed(2)
 
-	ballWrapperDiv.style.setProperty('--ball-x-bezier-start', xStart)
-	ballWrapperDiv.style.setProperty('--ball-x-bezier-end', xEnd)
+	ballWrapperDiv.style.setProperty(
+		'--ball-x-bezier-start',
+		destination === BallEndDestination.HOLE_IN_ONE ? '-0.5' : xStart
+	)
+	ballWrapperDiv.style.setProperty(
+		'--ball-x-bezier-end',
+		destination === BallEndDestination.HOLE_IN_ONE ? '1' : xEnd
+	)
 
 	ballWrapperDiv.style.setProperty('--ball-y-bezier-start', yStart)
 	ballWrapperDiv.style.setProperty('--ball-y-bezier-end', yEnd)
+	ballWrapperDiv.style.setProperty('--ball-hop-counter', '5')
 
 	ballWrapperDiv.style.setProperty(
 		'--ballpositions-end_water-x',
@@ -59,15 +66,21 @@ export const launchBall = (
 		'--ballpositions-end_green-x',
 		(
 			sceneState.ballPositions.end_hole.x +
-			(Math.random() * 200 + 50) * sceneState.scene_scale_x
+			(Math.random() * 30 + 20) * sceneState.scene_scale_x
 		).toString() + 'px'
 	)
 	ballWrapperDiv.style.setProperty(
 		'--ballpositions-end_green-y',
 		(
 			sceneState.ballPositions.end_hole.y +
-			(Math.random() - 0.5) * 40 * sceneState.scene_scale_y
+			(Math.random() * 30 + 20) * sceneState.scene_scale_y
 		).toString() + 'px'
+	)
+
+	// Adjust end destination to account for scaling of ball
+	ballWrapperDiv.style.setProperty(
+		'--ballpositions-end_hole-x',
+		(sceneState.ballPositions.end_hole.x - (14 * sceneState.scene_scale_x) / 2).toString() + 'px'
 	)
 
 	const ballShadowWrapperDiv = ballWrapperDiv.cloneNode(true) as HTMLDivElement
@@ -75,6 +88,7 @@ export const launchBall = (
 	ballShadowWrapperDiv.style.setProperty('--ball-color', '#222')
 	ballShadowWrapperDiv.style.setProperty('--ball-y-bezier-start', '1')
 	ballShadowWrapperDiv.style.setProperty('--ball-y-bezier-end', '1')
+	ballShadowWrapperDiv.classList.add('shadow')
 
 	animatingBallsContainer.appendChild(ballShadowWrapperDiv)
 	animatingBallsContainer.appendChild(ballWrapperDiv)
@@ -98,7 +112,12 @@ const handleTransitions = (ballDiv: HTMLDivElement, destination: BallEndDestinat
 			ballDiv.remove()
 		} else if (destination === BallEndDestination.HOLE_IN_ONE) {
 			if (ballDiv.classList.contains('GREEN')) {
-				ballDiv.classList.replace('GREEN', BallEndDestination.HOLE_IN_ONE)
+				requestAnimationFrame(() => {
+					ballDiv.classList.replace('GREEN', 'GREEN_HOP')
+					hop(ballDiv)
+				})
+			} else if (ballDiv.classList.contains('GREEN_HOP')) {
+				hop(ballDiv)
 			} else {
 				const parentClass = (e.target as HTMLDivElement).parentElement?.className
 				if (
@@ -106,9 +125,22 @@ const handleTransitions = (ballDiv: HTMLDivElement, destination: BallEndDestinat
 					parentClass.includes('ball-wrapper') &&
 					parentClass.includes(BallEndDestination.HOLE_IN_ONE)
 				) {
-					ballDiv.remove()
+					requestAnimationFrame(() => ballDiv.remove())
 				}
 			}
 		}
 	}
+}
+
+const hop = (ballDiv: HTMLDivElement): void => {
+	const hopCounter = Number(ballDiv.style.getPropertyValue('--ball-hop-counter'))
+	const newHopCounter = hopCounter - 1
+
+	requestAnimationFrame(() => {
+		if (newHopCounter) {
+			ballDiv.style.setProperty('--ball-hop-counter', newHopCounter.toString())
+		} else {
+			ballDiv.classList.replace('GREEN_HOP', BallEndDestination.HOLE_IN_ONE)
+		}
+	})
 }

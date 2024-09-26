@@ -10,7 +10,7 @@ import Scene from './components/Scene'
 import Swearing from './components/Swearing'
 import { sentences } from './content'
 import updateSceneDimensions from './helpers/updateSceneDimensions'
-import { BallEndDestination, GolferState, SceneState, Word } from './interfaces'
+import { BallEndDestination, DestinationCredits, GolferState, SceneState, Word } from './interfaces'
 
 import { SWEAR_DELAY, audio_splash, audio_swing } from './constants'
 import { arrSwearWords_orig } from './content'
@@ -44,7 +44,9 @@ const NotFound = (): JSX.Element => {
 	})
 	const [userMediaApproved, setUserMediaApproved] = useState(false)
 	const [ballsLost, setBallsLost] = useState(0)
-	const [ballsHit, setBallsHit] = useState(0)
+	const [, setBallsHit] = useState(0)
+	const [, setBoatClickCounter] = useState(0)
+	const [destinationCredits, setDestinationCredits] = useState<DestinationCredits>({})
 	const [showDialog, toggleDialog] = useState(false)
 	const [volume, setVolume] = useLocalStorage('volume', 0.35)
 	const [golferState, setGolferState] = useState<GolferState>({
@@ -73,6 +75,21 @@ const NotFound = (): JSX.Element => {
 		return window.removeEventListener('resize', updateSceneDimensions.bind(null, setSceneState))
 	}, [])
 
+	const onClickBoat = (e: any): void => {
+		setBoatClickCounter((count) => {
+			if (count % 7 === 6) {
+				;(e.currentTarget || e.target)?.classList.add('jump')
+				setDestinationCredits((credits) => {
+					const newCredits = { ...credits }
+					newCredits[BallEndDestination.HOLE_IN_ONE] =
+						(credits[BallEndDestination.HOLE_IN_ONE] || 0) + 1
+					return newCredits
+				})
+			}
+			return count + 1
+		})
+	}
+
 	const onClickGolfer = (): void => {
 		if (userMediaApproved == false) setUserMediaApproved(true)
 
@@ -80,7 +97,7 @@ const NotFound = (): JSX.Element => {
 			return
 		}
 
-		const destination = getNewDestination(ballsHit)
+		const destination = getNewDestination(destinationCredits, setDestinationCredits)
 
 		setGolferState({ isAnimating: false, canClick: false })
 		setTimeout(() => {
@@ -126,7 +143,7 @@ const NotFound = (): JSX.Element => {
 			<audio ref={audio_swing_ref} src={audio_swing}></audio>
 			<audio ref={audio_splash_ref} src={audio_splash}></audio>
 
-			<Scene sceneState={sceneState} />
+			<Scene sceneState={sceneState} onClickBoat={onClickBoat} />
 
 			<BackgroundAudio volume={volume} userMediaApproved={userMediaApproved} />
 
