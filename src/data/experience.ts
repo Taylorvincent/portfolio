@@ -1,7 +1,3 @@
-const currentMonthsLatestEmployer = Math.floor(
-	(new Date().valueOf() - new Date('2021-04-01').valueOf()) / (1000 * 60 * 60 * 24 * 30)
-)
-
 const experience = [
 	{
 		company: {
@@ -10,7 +6,7 @@ const experience = [
 			url: 'https://www.azumuta.com/en/',
 		},
 		durationText: 'Apr. 2021 - Present',
-		durationMonths: currentMonthsLatestEmployer,
+		durationMonths: 4*12+2,
 		role: 'Application developer',
 		stack: 'react (hooks), react-native, typescript, node, mongodb, Meteor',
 		content: [
@@ -57,7 +53,7 @@ const experience = [
 		},
 		role: 'Full-stack developer',
 		durationText: 'Winter 2017 - 3 months',
-		durationMonths: 3,
+		durationMonths: 0,
 		stack: 'Three.js, react, redux, express (node.js), mongoose (mongodb)',
 		content: [
 			'Took a break to get creative and extend my thesis project, a browser-based music Visualizr. Tried to convert our POC into a working product.',
@@ -74,7 +70,7 @@ const experience = [
 		},
 		role: 'Full-stack developer',
 		durationText: 'Spring & summer 2017 - 6 months',
-		durationMonths: 6,
+		durationMonths: 3,
 		stack: 'Laravel, scss, gulp',
 		content: [
 			'Back-end focused internship + summer job in this Brussels based agency.',
