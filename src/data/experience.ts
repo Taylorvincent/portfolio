@@ -70,7 +70,7 @@ const experience = [
 		},
 		role: 'Full-stack developer',
 		durationText: 'Spring & summer 2017 - 6 months',
-		durationMonths: 3,
+		durationMonths: 4,
 		stack: 'Laravel, scss, gulp',
 		content: [
 			'Back-end focused internship + summer job in this Brussels based agency.',
