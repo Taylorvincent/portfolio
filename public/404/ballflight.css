@@ -2,53 +2,52 @@
 /* Y-as bezier is eigenlijk redelijk hetzelfde wegens bal moet hangen in de lucht, enige variatie is hoogte? */
 
 .ball-wrapper {
-  position: absolute;
-  top: 0;
-  left: 0;
+	position: absolute;
+	top: 0;
+	left: 0;
 }
 
-.ball{
-  position: relative;
-  width: 14px;
-  height: 14px;
-  background-color: var(--ball-color, white);
-  left: 0;
-  top: 0;
-  transform: scale(calc(var(--scene_scale_x) * 1.2));
-  transform-origin: top;
-  transition: all 2.5s;
-  transition-timing-function: cubic-bezier(0,1,1,1);
-  
+.ball {
+	position: relative;
+	width: 14px;
+	height: 14px;
+	background-color: var(--ball-color, white);
+	left: 0;
+	top: 0;
+	transform: scale(calc(var(--scene_scale_x) * 1.2));
+	transform-origin: top;
+	transition: all 2.5s;
+	transition-timing-function: cubic-bezier(0, 1, 1, 1);
 }
 
 .WATER .ball,
 .GREEN .ball,
 .HOLE_IN_ONE .ball {
-  transform: scale(calc(var(--scene_scale_x) * .6));
+	transform: scale(calc(var(--scene_scale_x) * 0.6));
 }
 
 .ball-X {
-  position: relative;
-  transition: all 2.5s;
-  transform: translateX(var(--ballpositions-start-x));
-  transition-timing-function: cubic-bezier(
-    0, 
-    calc(var(--ball-x-bezier-start, 1)),
-    1, 
-    calc(var(--ball-x-bezier-end, 1))
-  );
+	position: relative;
+	transition: all 2.5s;
+	transform: translateX(var(--ballpositions-start-x));
+	transition-timing-function: cubic-bezier(
+		0,
+		calc(var(--ball-x-bezier-start, 1)),
+		1,
+		calc(var(--ball-x-bezier-end, 1))
+	);
 }
 
 .ball-Y {
-  position: relative;
-  transition: all 2.5s;
-  transform: translateY(var(--ballpositions-start-y));
-  transition-timing-function: cubic-bezier(
-    0,
-    calc( var(--ball-y-bezier-start, 1)),
-    1,
-    calc( var(--ball-y-bezier-end, 1))
-  );
+	position: relative;
+	transition: all 2.5s;
+	transform: translateY(var(--ballpositions-start-y));
+	transition-timing-function: cubic-bezier(
+		0,
+		calc(var(--ball-y-bezier-start, 1)),
+		1,
+		calc(var(--ball-y-bezier-end, 1))
+	);
 }
 
 /* 
@@ -57,25 +56,24 @@
   - maybe even generate this part with function
 */
 .WATER .ball-X {
-  transform: translateX(var(--ballpositions-end_water-x));
+	transform: translateX(var(--ballpositions-end_water-x));
 }
-.WATER .ball-Y{
-  transform: translateY(var(--ballpositions-end_water-y));
+.WATER .ball-Y {
+	transform: translateY(var(--ballpositions-end_water-y));
 }
 
 .HOLE_IN_ONE .ball-X {
-  transform: translateX(var(--ballpositions-end_hole-x));
-  transition-timing-function: cubic-bezier( 0,0,1,1 );
- 
+	transform: translateX(var(--ballpositions-end_hole-x));
+	transition-timing-function: cubic-bezier(0, 0, 1, 1);
 }
-.HOLE_IN_ONE .ball-Y{
-  transform: translateY(var(--ballpositions-end_hole-y));
-  transition-timing-function: cubic-bezier( 1,0,1,1 );
+.HOLE_IN_ONE .ball-Y {
+	transform: translateY(var(--ballpositions-end_hole-y));
+	transition-timing-function: cubic-bezier(1, 0, 1, 1);
 }
 
 .GREEN .ball-X {
-  transform: translateX(var(--ballpositions-end_green-x));
+	transform: translateX(var(--ballpositions-end_green-x));
 }
-.GREEN .ball-Y{
-  transform: translateY(var(--ballpositions-end_green-y));
+.GREEN .ball-Y {
+	transform: translateY(var(--ballpositions-end_green-y));
 }

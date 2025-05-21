@@ -3,40 +3,39 @@
 @tailwind utilities;
 
 @layer base {
-  h1 {
-    @apply text-7xl;
-  }
-  h2 {
-    @apply text-4xl;
-  }
-  h3 {
-    @apply text-2xl;
-  }
+	h1 {
+		@apply text-7xl;
+	}
+	h2 {
+		@apply text-4xl;
+	}
+	h3 {
+		@apply text-2xl;
+	}
 
-  li {
-    @apply list-disc mb-2;
-  }
+	li {
+		@apply list-disc mb-2;
+	}
 
-  a:focus,button:focus {
-    outline: none;
-  }
-  
+	a:focus,
+	button:focus {
+		outline: none;
+	}
 }
 
-@layer utilities { 
+@layer utilities {
+	.text-link {
+		color: #2867b2;
+		fill: #2867b2;
+	}
 
-  .text-link {
-    color: #2867B2;
-    fill: #2867B2;
-  }
+	.text-soft {
+		@apply text-gray-800;
+	}
 
-  .text-soft {
-    @apply text-gray-800;
-  }
-  
-  @media (prefers-color-scheme: dark) {    
-    .text-soft {
-      @apply text-gray-300;
-    }
-  }
+	@media (prefers-color-scheme: dark) {
+		.text-soft {
+			@apply text-gray-300;
+		}
+	}
 }

@@ -6,7 +6,7 @@ const experience = [
 			url: 'https://www.azumuta.com/en/',
 		},
 		durationText: 'Apr. 2021 - Present',
-		durationMonths: 4*12+2,
+		durationMonths: 4 * 12 + 2,
 		role: 'Application developer',
 		stack: 'react (hooks), react-native, typescript, node, mongodb, Meteor',
 		content: [
