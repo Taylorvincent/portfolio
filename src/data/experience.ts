@@ -10,8 +10,8 @@ const experience = [
 		role: 'Application developer',
 		stack: 'react (hooks), react-native, typescript, node, mongodb, Meteor',
 		content: [
-			'Happily working a full stack position allowing me to independently create new features in Azumuta.',
-			'E.g. dashboards for performance metrics or enhancements to existing features.',
+			'Maintaining and creating new features for a SaaS startup/scaleup using a full javascript/node stack including a (react) native app.',
+			'Some example features: In app dashboarding, custom integrations with customer ERP systems, public facing REST API, unit/integration tests,...'
 		],
 	},
 	{
