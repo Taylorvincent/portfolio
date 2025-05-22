@@ -5,7 +5,7 @@ const experience = [
 			desc: 'Bringing industry 4.0 to the manufacturing companies.',
 			url: 'https://www.azumuta.com/en/',
 		},
-		durationText: 'Apr. 2021 - Present',
+		durationText: 'Apr. 2021 - May 2025',
 		durationMonths: 4 * 12 + 2,
 		role: 'Application developer',
 		stack: 'react (hooks), react-native, typescript, node, mongodb, Meteor',
