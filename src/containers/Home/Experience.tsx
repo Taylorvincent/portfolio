@@ -29,7 +29,11 @@ const Experience = (): JSX.Element => {
 
 	const monthsExp = exp.reduce((acc, current) => acc + current.durationMonths, 0)
 	const yearsExp = Math.floor(monthsExp / 12)
-	console.log('monthsExp % 12 = ', monthsExp % 12)
+
+	console.log({
+		yearsExp,
+		monthsExp: monthsExp % 12,
+	})
 
 	return (
 		<section className="container mx-auto p-8">

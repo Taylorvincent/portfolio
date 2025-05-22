@@ -1,3 +1,9 @@
+const golf = (
+	<span role="img" aria-label="golf">
+		🏌️‍♂️ ⛳
+	</span>
+)
+
 const Header = (): JSX.Element => {
 	return (
 		<header className="container flex flex-wrap mx-auto mb-8 p-8 pb-0 bg-black text-white">
@@ -16,11 +22,8 @@ const Header = (): JSX.Element => {
 				</h2>
 				<p>I'm a creative full-stack developer, with a focus on modern front-end development.</p>
 				<p>
-					When not coding I'm either gaming, keyboard hoarding or playing{' '}
-					<span role="img" aria-label="golf">
-						🏌️‍♂️ ⛳
-					</span>{' '}
-					when the weather allows it.
+					When not coding I'm either on the golf course {golf}, working in my garden or playing some
+					games.
 				</p>
 			</div>
 		</header>
