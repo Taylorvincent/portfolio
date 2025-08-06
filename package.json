@@ -11,7 +11,7 @@
 	},
 	"husky": {
 		"hooks": {
-			"pre-commit": "yarn type-check"
+			"pre-commit": "npm run type-check"
 		}
 	},
 	"dependencies": {
@@ -25,11 +25,10 @@
 		"@types/node": "^20.4.2",
 		"@types/react": "^18.2.14",
 		"@types/react-dom": "^18.2.7",
-		"@typescript-eslint/eslint-plugin": "^4.14.1",
-		"@typescript-eslint/parser": "^4.14.1",
+		"@typescript-eslint/eslint-plugin": "^7.0.0",
+		"@typescript-eslint/parser": "^7.0.0",
 		"autoprefixer": "^10.2.3",
-		"eslint": "^7.18.0",
-		"eslint-config-airbnb": "^18.2.1",
+		"eslint": "^8.57.0",
 		"eslint-config-next": "^15.3.2",
 		"eslint-config-prettier": "^10.1.5",
 		"eslint-plugin-jsx-a11y": "^6.10.2",
@@ -38,7 +37,7 @@
 		"eslint-plugin-react-hooks": "^5.2.0",
 		"husky": "^4.3.8",
 		"postcss": "^8.4.38",
-		"prettier": "^2.2.1",
+		"prettier": "^3.0.0",
 		"tailwindcss": "^3.4.1",
 		"typescript": "^5.4.5"
 	},

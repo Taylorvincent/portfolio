@@ -120,9 +120,6 @@ const NotFound = (): JSX.Element => {
 
 	return (
 		<div className="pixelgolf">
-			<link rel="stylesheet" type="text/css" href="/404/styles.css" media="screen" />
-			<link rel="stylesheet" type="text/css" href="/404/ballflight.css" media="screen" />
-
 			<audio ref={audio_swing_ref} src={audio_swing}></audio>
 			<audio ref={audio_splash_ref} src={audio_splash}></audio>
 
