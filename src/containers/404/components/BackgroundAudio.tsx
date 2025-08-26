@@ -56,14 +56,14 @@ const BackgroundAudio = (props: Props): JSX.Element => {
 			requests.wii_preloop.open('GET', audio_wii_preloop, true)
 			requests.wii_preloop.onload = () => setWiiPreLoopLoaded(true)
 			requests.wii_preloop.responseType = 'arraybuffer'
-			requests.wii_preloop.onerror = (e: any) => console.log(e)
+			requests.wii_preloop.onerror = (e: unknown) => console.log(e)
 			requests.wii_preloop.send()
 
 			requests.wii_loop = new XMLHttpRequest()
 			requests.wii_loop.open('GET', audio_wii_loop, true)
 			requests.wii_loop.responseType = 'arraybuffer'
 			requests.wii_loop.onload = () => setWiiLoopLoaded(true)
-			requests.wii_loop.onerror = (e: any) => console.log(e)
+			requests.wii_loop.onerror = (e: unknown) => console.log(e)
 			requests.wii_loop.send()
 		}
 

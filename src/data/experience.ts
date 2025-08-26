@@ -11,7 +11,7 @@ const experience = [
 		stack: 'react (hooks), react-native, typescript, node, mongodb, Meteor',
 		content: [
 			'Maintaining and creating new features for a SaaS startup/scaleup using a full javascript/node stack including a (react) native app.',
-			'Some example features: In app dashboarding, custom integrations with customer ERP systems, public facing REST API, unit/integration tests,...'
+			'Some example features: In app dashboarding, custom integrations with customer ERP systems, public facing REST API, unit/integration tests,...',
 		],
 	},
 	{
